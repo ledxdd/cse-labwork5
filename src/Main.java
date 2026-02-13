@@ -2,72 +2,11 @@ package cse_labwork5.src;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.time.ZonedDateTime;
 import java.util.Scanner;
 import java.util.TreeSet;
 
 public class Main {
-    static public class SpaceMarine implements Comparable<SpaceMarine> {
-        private Long id; //Поле не может быть null, Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
-        private String name; //Поле не может быть null, Строка не может быть пустой
-        private Coordinates coordinates; //Поле не может быть null
-        private java.time.ZonedDateTime creationDate; //Поле не может быть null, Значение этого поля должно генерироваться автоматически
-        private Double health; //Поле может быть null, Значение поля должно быть больше 0
-        private String achievements; //Поле может быть null
-        private AstartesCategory category; //Поле может быть null
-        private Weapon weaponType; //Поле может быть null
-        private Chapter chapter; //Поле не может быть null
-
-        static private long next_id = 0L;
-
-        private void setName(String name) {
-            if (name == null || " ".equals(name) || name.trim().isEmpty()) {
-                System.out.println("Name can't be empty. Please enter the valid name!");
-            } else {
-                this.name = name;
-            }
-        }
-
-        public SpaceMarine() {
-            this.id = next_id++;
-        }
-
-        public SpaceMarine(String name, Coordinates crdnt, double health, String achievements, AstartesCategory category, Weapon weapon, Chapter chapter) {
-            this.id = next_id++;
-            setName(name);
-            this.coordinates.x = crdnt.x;
-            this.coordinates.y = crdnt.y;
-            this.creationDate = java.time.ZonedDateTime.now();
-            this.health = health;
-            this.achievements = achievements;
-            this.category = category;
-            this.weaponType = weapon;
-            this.chapter = chapter;
-        }
-
-        @Override
-        public int compareTo(SpaceMarine other) {
-            return this.id.compareTo(other.id);
-        }
-
-
-    }
-
-    static public class Coordinates {
-        private Double x; //Поле не может быть null
-        private float y;
-    }
-
-    static public class Chapter {
-        private String name; //Поле не может быть null, Строка не может быть пустой
-        private int marinesCount; //Значение поля должно быть больше 0, Максимальное значение поля: 1000
-        private String world; //Поле может быть null
-
-        Chapter(String name, int marinescnt, String wrld) {
-            this.name = name;
-            this.marinesCount = marinescnt;
-            this.world = wrld;
-        }
-    }
 
     public enum AstartesCategory {
         SCOUT,
@@ -81,6 +20,242 @@ public class Main {
         BOLT_RIFLE,
         PLASMA_GUN,
         GRENADE_LAUNCHER;
+    }
+
+    static public class SpaceMarine implements Comparable<SpaceMarine> {
+        private Long id; //Поле не может быть null, Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически !
+        private String name; //Поле не может быть null, Строка не может быть пустой
+        private Coordinates coordinates; //Поле не может быть null
+        private java.time.ZonedDateTime creationDate; //Поле не может быть null, Значение этого поля должно генерироваться автоматически !
+        private Double health; //Поле может быть null, Значение поля должно быть больше 0 !
+        private String achievements; //Поле может быть null !
+        private AstartesCategory category; //Поле может быть null !
+        private Weapon weaponType; //Поле может быть null
+        private Chapter chapter; //Поле не может быть null
+
+        static private long next_id = 0L;
+
+
+        // SETTERS
+
+        private boolean setName(String name) {
+            if (name == null || " ".equals(name) || name.trim().isEmpty()) {
+                System.out.println("Name can't be empty. Please enter the valid name!");
+                return false;
+            } else {
+                this.name = name;
+                return true;
+            }
+        }
+
+        public void setId(Long id) {
+            this.id = id;
+        }
+
+        public boolean setHealth(Double health) {
+            if (health != null && health <= 0) {
+                System.out.println("Health must be > 0");
+                return false;
+            }
+            this.health = health;
+            return true;
+        }
+
+        public void setAchievments(String achivs) {
+            this.achievements = achivs;
+        }
+
+        public void setCategory(AstartesCategory ctg) {
+            this.category = ctg;
+        }
+
+        public boolean setChapter(Chapter chpt) {
+            if (chpt != null) {
+                this.chapter = chpt;
+                return true;
+            } else {
+                System.out.println("Chapter can not be null. Try again!");
+            }
+
+            return false;
+        }
+
+        public boolean setWeaponType(Weapon wpn_tp) {
+            if (wpn_tp != null) {
+                this.weaponType = wpn_tp;
+                return true;
+            } else {
+                System.out.println("Weapon type can not be null. Try again!");
+                return false;
+            }
+        }
+
+        public boolean setCoordinates(Coordinates crdnt) {
+            if (crdnt != null) {
+                this.coordinates = crdnt;
+                return true;
+            } else {
+                System.out.println("Coordinates cant be null. Try again!");
+                return false;
+            }
+        }
+
+        // END OF SETTERS
+
+        // GETTERS
+
+        public Long getId() {
+            return id;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public String getAchievements() {
+            return achievements;
+        }
+
+        public AstartesCategory getCategory() {
+            return category;
+        }
+
+        public Weapon getWeaponType() {
+            return weaponType;
+        }
+
+        public Chapter getChapter() {
+            return chapter;
+        }
+
+        public ZonedDateTime getCreationDate() {
+            return creationDate;
+        }
+
+        public Coordinates getCoordinates() {
+            return coordinates;
+        }
+
+        // END OF GETTERS
+
+        // CONSTRUCTORS
+
+        public SpaceMarine() {
+            this.id = next_id++;
+        }
+
+        public SpaceMarine(String name, Coordinates crdnt, double health, String achievements, AstartesCategory category, Weapon weapon, Chapter chapter) {
+            this.id = next_id++;
+            setName(name);
+            this.coordinates = crdnt;
+            this.creationDate = java.time.ZonedDateTime.now();
+            this.health = health;
+            this.achievements = achievements;
+            this.category = category;
+            this.weaponType = weapon;
+            this.chapter = chapter;
+        }
+
+        // END OF CONSTRUCTORS
+
+        @Override
+        public int compareTo(SpaceMarine other) {
+            return this.id.compareTo(other.id);
+        }
+
+    }
+
+    static public class Coordinates {
+        private Double x; //Поле не может быть null
+        private float y;
+
+        // SETTERS
+
+        void setX(double x) {
+            this.x = x;
+        }
+
+        void setY(float y) {
+            this.y = y;
+        }
+
+        // END OF SETTERS
+
+        // GETTERS
+
+        double getX() {
+            return x;
+        }
+
+        float getY() {
+            return y;
+        }
+
+        // END OF GETTERS
+
+        // CONSTRUCTORS
+
+        public Coordinates() {
+            x = 0D;
+            y = 0F;
+        }
+
+        public Coordinates(Double x, float y) {
+            this.x = x;
+            this.y = y;
+        }
+
+        // END OF CONSTRUCTORS    
+    }
+
+    static public class Chapter {
+        private String name; //Поле не может быть null, Строка не может быть пустой
+        private int marinesCount; //Значение поля должно быть больше 0, Максимальное значение поля: 1000
+        private String world; //Поле может быть null
+
+        public Chapter(String name, int marinescnt, String wrld) {
+            this.name = name;
+            this.marinesCount = marinescnt;
+            this.world = wrld;
+        }
+
+        // SETTERS
+
+        public boolean setName(String name) {
+            if (name.isEmpty()) {
+                System.out.println("Name can not be empty!");
+                return false;
+            } 
+            this.name = name;
+
+            return true;
+        }
+
+        public void setMarinesCount(int cnt) {
+            this.marinesCount = cnt;
+        }
+
+        public void setWorld(String world) {
+            this.world = world;
+        }
+
+        // END OF SETTERS
+
+        // GETTERS
+
+        public String getName() {
+            return name;
+        }
+
+        public String getWorld() {
+            return world;
+        }
+
+        public int getMarinesCnt() {
+            return marinesCount;
+        }
+
+        // END OF GETTERS
     }
 
     static private TreeSet<SpaceMarine> collection;
@@ -151,7 +326,13 @@ public class Main {
                     System.out.println(av_health);
                 }
                 case "clear" -> clearCollection(collection);
-                case "add" -> fillMarine();
+                case "add" -> {
+                    SpaceMarine marine = new SpaceMarine();
+                    fillMarine(marine);
+                    collection.add(marine);
+
+                    System.out.println("New marine added! His id is: " + marine.getId());
+                }
                 default -> {
                 }
             }
@@ -163,34 +344,151 @@ public class Main {
         return !(name == null || " ".equals(name) || name.trim().isEmpty());
     }
 
-    static void fillMarine() {
-        SpaceMarine marine = new SpaceMarine();
-        
+    static void fillMarine(SpaceMarine marine) {    
         System.out.println("*******| New marine creation |*******");
-        
-        boolean creating_marine = true;
-        
-        while (creating_marine) {
-            System.out.println("Enter the marine name: ");
-            String name = global_scanner.nextLine();
-            
-            if (checkName(name)) {
-                marine.setName(name);
-                creating_marine = false;
-            } else {
-                System.out.println("Name can't be blank. Please, enter again: ");
+
+        while (true) {   
+                System.out.println("Enter the marine name: ");
+                String name = global_scanner.nextLine();
+                
+                if (checkName(name)) {
+                    marine.setName(name);
+                    break;
+                } else {
+                    System.out.println("Name can't be blank. Please, enter again: ");
+                }
             }
             
-        }
-        
-    }
+        while (true) {
+            System.out.println("Enter marine's health: ");
+            String strhealth = global_scanner.nextLine().trim();
 
-    static void fillCollection(TreeSet<SpaceMarine> collection) {
-        boolean collecting_info = true;
+            if (strhealth.isEmpty()) {
+                marine.setHealth(null);
+                break;
+            }
 
-        while (collecting_info) {
+            Double health = Double.valueOf(strhealth);
+
+            boolean ok = marine.setHealth(health);
             
+            if (ok) {
+                break;
+            }
         }
+
+        while (true) { 
+            System.out.println("Enter marine's achievments: ");
+
+            String achievs = global_scanner.nextLine();
+
+            if (achievs.isEmpty()) {
+                marine.setAchievments(null);
+                break;
+            }
+
+            marine.setAchievments(achievs);
+            break;
+        }
+
+        boolean category_set = false;
+
+        while (!category_set) {
+            System.out.println("Enter marine's category (pick one & type in only the name): ");
+            System.out.println("1. SCOUT");
+            System.out.println("2. AGGRESSOR");
+            System.out.println("3. TACTICAL");
+            System.out.println("4. APOTHECARY");
+            
+            String user_input = global_scanner.nextLine().toUpperCase().trim();
+
+            if (user_input.isEmpty()) {
+                marine.setCategory(null);
+                break;
+            }
+            
+            switch (user_input) {
+                case "SCOUT" -> {
+                    marine.setCategory(AstartesCategory.SCOUT);
+                    category_set = true;
+                }
+                case "AGGRESSOR" -> {
+                    marine.setCategory(AstartesCategory.AGGRESSOR);
+                    category_set = true;
+                }
+                case "TACTICAL" -> {
+                    marine.setCategory(AstartesCategory.TACTICAL);
+                    category_set = true;
+                }
+                case "APOTHECARY" -> {
+                    marine.setCategory(AstartesCategory.APOTHECARY);
+                    category_set = true;
+                }
+                default -> System.out.println("Wrong input! Try again!");
+            }
+        }
+
+        boolean weapon_set = false;
+        while (!weapon_set) {
+            System.out.println("Enter marine's weapon (pick one & type in only the name): ");
+            System.out.println("1. MELTAGUN");
+            System.out.println("2. BOLT_RIFLE");
+            System.out.println("3. PLASMA_GUN");
+            System.out.println("4. GRENADE_LAUNCHER");
+            
+            String user_input = global_scanner.nextLine().toUpperCase().trim();
+
+            if (user_input.isEmpty()) {
+                marine.setWeaponType(null);
+                break;
+            }
+            
+            switch (user_input) {
+                case "MELTAGUN" -> {
+                    marine.setWeaponType(Weapon.MELTAGUN);
+                    weapon_set = true;
+                }
+                case "BOLT_RIFLE" -> {
+                    marine.setWeaponType(Weapon.BOLT_RIFLE);
+                    weapon_set = true;
+                }
+                case "PLASMA_GUN" -> {
+                    marine.setWeaponType(Weapon.PLASMA_GUN);
+                    weapon_set = true;
+                }
+                case "GRENADE_LAUNCHER" -> {
+                    marine.setWeaponType(Weapon.GRENADE_LAUNCHER);
+                    weapon_set = true;
+                }
+                default -> System.out.println("Wrong input! Try again!");
+            }
+        }
+
+        while (true) {
+            int mrns_cnt = 0;
+            boolean ok = false;
+            System.out.println("Enter marine's chapter name: ");
+            String chpt_name = global_scanner.nextLine();
+
+            while (!ok) {
+                System.out.println("Enter marine's chapter marinesCount: ");
+                mrns_cnt = global_scanner.nextInt();
+
+                if (mrns_cnt > 0 && mrns_cnt <= 1000) {
+                    ok = true;
+                } else {
+                    System.out.println("Not a valid number. Please try again!");
+                }
+            }
+            
+            global_scanner.nextLine();
+            System.out.println("Enter marine's chapter world: ");
+            String wrld = global_scanner.nextLine(); 
+            Chapter chapter = new Chapter(chpt_name, mrns_cnt, wrld);
+
+            marine.setChapter(chapter);
+            break;
+        }    
     }
 
     public static void main(String[] args) {
