@@ -69,6 +69,10 @@ public class Main {
             this.category = ctg;
         }
 
+        public void setCreationDate(java.time.ZonedDateTime time) {
+            this.creationDate = time;
+        }
+
         public boolean setChapter(Chapter chpt) {
             if (chpt != null) {
                 this.chapter = chpt;
@@ -128,6 +132,10 @@ public class Main {
             return chapter;
         }
 
+        public double getHealth() {
+            return health;
+        }
+
         public ZonedDateTime getCreationDate() {
             return creationDate;
         }
@@ -144,6 +152,15 @@ public class Main {
             this.id = next_id++;
         }
 
+        public SpaceMarine(String flag) {
+            if ("update".equals(flag)) {
+                
+            } else {
+                this.id = next_id++;
+            }
+            
+        }
+
         public SpaceMarine(String name, Coordinates crdnt, double health, String achievements, AstartesCategory category, Weapon weapon, Chapter chapter) {
             this.id = next_id++;
             setName(name);
@@ -154,6 +171,18 @@ public class Main {
             this.category = category;
             this.weaponType = weapon;
             this.chapter = chapter;
+        }
+
+        public SpaceMarine(SpaceMarine other) {
+            this.id = other.id;
+            this.name = other.name;
+            this.coordinates = other.coordinates;
+            this.creationDate = other.creationDate;
+            this.health = other.health;
+            this.achievements = other.achievements;
+            this.category = other.category;
+            this.weaponType = other.weaponType;
+            this.chapter = other.chapter;
         }
 
         // END OF CONSTRUCTORS
@@ -264,19 +293,19 @@ public class Main {
     static private Scanner global_scanner;
 
     static public void printHelp() {
-        System.out.println("info : вывести в стандартный поток вывода информацию о коллекции (тип, дата инициализации, количество элементов и т.д.)");
-        System.out.println("show : вывести в стандартный поток вывода все элементы коллекции в строковом представлении");
-        System.out.println("add {element} : добавить новый элемент в коллекцию");
-        System.out.println("update id {element} : обновить значение элемента коллекции, id которого равен заданному");
-        System.out.println("remove_by_id id : удалить элемент из коллекции по его id");        
-        System.out.println("clear : очистить коллекцию");
+        System.out.println("✅info : вывести в стандартный поток вывода информацию о коллекции (тип, дата инициализации, количество элементов и т.д.)");
+        System.out.println("✅show : вывести в стандартный поток вывода все элементы коллекции в строковом представлении");
+        System.out.println("✅add {element} : добавить новый элемент в коллекцию");
+        System.out.println("✅update id {element} : обновить значение элемента коллекции, id которого равен заданному");
+        System.out.println("✅remove_by_id id : удалить элемент из коллекции по его id");        
+        System.out.println("✅clear : очистить коллекцию");
         System.out.println("save : сохранить коллекцию в файл");
         System.out.println("execute_script file_name : считать и исполнить скрипт из указанного файла. В скрипте содержатся команды в таком же виде, в котором их вводит пользователь в интерактивном режиме.");
-        System.out.println("exit : завершить программу (без сохранения в файл)");
+        System.out.println("✅exit : завершить программу (без сохранения в файл)");
         System.out.println("add_if_max {element} : добавить новый элемент в коллекцию, если его значение превышает значение наибольшего элемента этой коллекции");
         System.out.println("add_if_min {element} : добавить новый элемент в коллекцию, если его значение меньше, чем у наименьшего элемента этой коллекции");
         System.out.println("remove_lower {element} : удалить из коллекции все элементы, меньшие, чем заданный");
-        System.out.println("average_of_health : вывести среднее значение поля health для всех элементов коллекции");
+        System.out.println("✅average_of_health : вывести среднее значение поля health для всех элементов коллекции");
         System.out.println("count_less_than_chapter chapter : вывести количество элементов, значение поля chapter которых меньше заданного");
         System.out.println("print_field_ascending_achievements : вывести значения поля achievements всех элементов в порядке возрастания");
     }
@@ -312,8 +341,11 @@ public class Main {
             
             String user_input;
             user_input = global_scanner.nextLine();
+            String[] parts = user_input.split(" ", 2);
+            String command = parts[0];
+            String arg = parts.length > 1 ? parts[1] : null;
             
-            if (null != user_input) switch (user_input) {
+            switch (command) {
                 case "exit" -> is_running = false;
                 case "help" -> printHelp();
                 case "clear()" -> {
@@ -328,36 +360,136 @@ public class Main {
                 case "clear" -> clearCollection(collection);
                 case "add" -> {
                     SpaceMarine marine = new SpaceMarine();
-                    fillMarine(marine);
+                    fillMarine(marine, "creation");
                     collection.add(marine);
 
                     System.out.println("New marine added! His id is: " + marine.getId());
                 }
-                default -> {
+                case "update" -> {
+                    long id = Long.parseLong(arg);
+                    updateById(id);
+                }
+                case "show" -> {
+                    showCollection();
+                }
+                case "remove_by_id" -> {
+                    long id = Long.parseLong(arg);
+                    removeById(id);
+                }
+                default -> { System.out.println("Wrong input! Type in 'help' for list of commands.");
                 }
             }
         } 
+    }
+
+    static void removeById(long id) {
+        boolean removed = collection.removeIf(marine -> marine.getId() == id);
+
+        if (removed) {
+            System.out.println("Marine with id {" + id + "} was removed!");
+        } else {
+            System.out.println("Marine with id {" + id + "} was not removed!");
+        }
+    }
+
+    static void showCollection() {
+        if (collection.isEmpty()) {
+            System.out.println("📭 Collection is empty!");
+            return;
+        }
         
+        System.out.println("\n" + "=".repeat(100));
+        System.out.println("📋 COLLECTION CONTENTS (total: " + collection.size() + " marines)");
+        System.out.println("=".repeat(100));
+        
+        int index = 1;
+        for (SpaceMarine m : collection) {
+            System.out.println("\n🔹 MARINE #" + index++ + " (ID: " + m.getId() + ")");
+            System.out.println("   ├─ Name: " + m.getName());
+            System.out.println("   ├─ Coordinates: (" + m.getCoordinates().getX() + ", " + m.getCoordinates().getY() + ")");
+            System.out.println("   ├─ Created: " + m.getCreationDate());
+            System.out.println("   ├─ Health: " + m.getHealth());
+            System.out.println("   ├─ Achievements: " + (m.getAchievements() != null ? m.getAchievements() : "null"));
+            System.out.println("   ├─ Category: " + (m.getCategory() != null ? m.getCategory() : "null"));
+            System.out.println("   ├─ Weapon: " + (m.getWeaponType() != null ? m.getWeaponType() : "null"));
+            System.out.println("   └─ Chapter: " + m.getChapter().getName() + 
+                            " (count: " + m.getChapter().getMarinesCnt() + 
+                            ", world: " + (m.getChapter().getWorld() != null ? m.getChapter().getWorld() : "null") + ")");
+        }
+        System.out.println("\n" + "=".repeat(100));
+    }
+
+    static SpaceMarine findById(long id) {
+        for (SpaceMarine marine : collection) {
+            if (marine.getId() == id) {
+                return marine;
+            }
+        }
+        return null;
+    }
+
+    static void updateById(long id) {
+        SpaceMarine old_marine = findById(id);
+        
+        if (old_marine == null) {
+            System.out.println("Marine with id " + id + " not found!");
+            return;
+        }
+        
+        SpaceMarine new_marine = new SpaceMarine(old_marine);
+        
+        new_marine.setId(old_marine.getId());
+        new_marine.setCreationDate(old_marine.getCreationDate());
+        
+        fillMarine(new_marine, "update");
+        
+        collection.remove(old_marine);
+        collection.add(new_marine);
+
+        System.out.println("Marine updated succesfully!");
     }
 
     static boolean checkName(String name) {
         return !(name == null || " ".equals(name) || name.trim().isEmpty());
     }
 
-    static void fillMarine(SpaceMarine marine) {    
-        System.out.println("*******| New marine creation |*******");
+    static void fillMarine(SpaceMarine marine, String flag) {    
+        if ("creation".equals(flag)) {
+            System.out.println("*******| New marine creation |*******");
+        } else if ("update".equals(flag)) {
+            System.out.println("*******| Marine info  update |*******");
+        }
 
         while (true) {   
-                System.out.println("Enter the marine name: ");
-                String name = global_scanner.nextLine();
-                
-                if (checkName(name)) {
-                    marine.setName(name);
-                    break;
-                } else {
-                    System.out.println("Name can't be blank. Please, enter again: ");
-                }
+            System.out.println("Enter the marine name: ");
+            String name = global_scanner.nextLine();
+            
+            if (checkName(name)) {
+                marine.setName(name);
+                break;
+            } else {
+                System.out.println("Name can't be blank. Please, enter again: ");
             }
+        }
+
+        while (true) { 
+            Coordinates coordinates = new Coordinates();
+
+            System.out.println("Enter x coordinate: ");
+            int x = global_scanner.nextInt();
+            global_scanner.nextLine();
+
+            System.out.println("Enter y coordinate: ");
+            int y = global_scanner.nextInt();
+            global_scanner.nextLine();
+
+            coordinates.setX(x);
+            coordinates.setY(y);
+
+            marine.setCoordinates(coordinates);
+
+            break;
+        }
             
         while (true) {
             System.out.println("Enter marine's health: ");
@@ -408,19 +540,19 @@ public class Main {
             }
             
             switch (user_input) {
-                case "SCOUT" -> {
+                case "SCOUT", "1" -> {
                     marine.setCategory(AstartesCategory.SCOUT);
                     category_set = true;
                 }
-                case "AGGRESSOR" -> {
+                case "AGGRESSOR", "2" -> {
                     marine.setCategory(AstartesCategory.AGGRESSOR);
                     category_set = true;
                 }
-                case "TACTICAL" -> {
+                case "TACTICAL", "3" -> {
                     marine.setCategory(AstartesCategory.TACTICAL);
                     category_set = true;
                 }
-                case "APOTHECARY" -> {
+                case "APOTHECARY", "4" -> {
                     marine.setCategory(AstartesCategory.APOTHECARY);
                     category_set = true;
                 }
@@ -444,19 +576,19 @@ public class Main {
             }
             
             switch (user_input) {
-                case "MELTAGUN" -> {
+                case "MELTAGUN", "1"  -> {
                     marine.setWeaponType(Weapon.MELTAGUN);
                     weapon_set = true;
                 }
-                case "BOLT_RIFLE" -> {
+                case "BOLT_RIFLE", "2" -> {
                     marine.setWeaponType(Weapon.BOLT_RIFLE);
                     weapon_set = true;
                 }
-                case "PLASMA_GUN" -> {
+                case "PLASMA_GUN", "3" -> {
                     marine.setWeaponType(Weapon.PLASMA_GUN);
                     weapon_set = true;
                 }
-                case "GRENADE_LAUNCHER" -> {
+                case "GRENADE_LAUNCHER", "4" -> {
                     marine.setWeaponType(Weapon.GRENADE_LAUNCHER);
                     weapon_set = true;
                 }
