@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<collection>
+    <!-- Космодесантник 1: Тяжелая поддержка -->
+    <spacemarine>
+        <id>1</id>
+        <name>Brother-Sergeant Cassius</name>
+        <coordinates>
+            <x>150.5</x>
+            <y>75.0</y>
+        </coordinates>
+        <creationDate>2024-01-15T10:30:00+03:00</creationDate>
+        <health>120.0</health>
+        <achievements>Veteran of the Tyrannic Wars, Slayer of the Swarmlord</achievements>
+        <category>AGGRESSOR</category>
+        <weapon>MELTAGUN</weapon>
+        <chapter>
+            <name>Ultramarines</name>
+            <marinesCount>1000</marinesCount>
+            <world>Macragge</world>
+        </chapter>
+    </spacemarine>
+
+    <!-- Космодесантник 2: Тактический -->
+    <spacemarine>
+        <id>2</id>
+        <name>Brother-Sergeant Titus</name>
+        <coordinates>
+            <x>75.0</x>
+            <y>120.0</y>
+        </coordinates>
+        <creationDate>2024-01-15T10:35:00+03:00</creationDate>
+        <health>95.5</health>
+        <achievements>Hero of Graia, Chaos Slayer</achievements>
+        <category>TACTICAL</category>
+        <weapon>BOLT_RIFLE</weapon>
+        <chapter>
+            <name>Ultramarines</name>
+            <marinesCount>1000</marinesCount>
+            <world>Macragge</world>
+        </chapter>
+    </spacemarine>
+
+    <!-- Космодесантник 3: Разведчик -->
+    <spacemarine>
+        <id>3</id>
+        <name>Brother-Scout Kylar</name>
+        <coordinates>
+            <x>200.0</x>
+            <y>50.0</y>
+        </coordinates>
+        <creationDate>2024-01-15T10:40:00+03:00</creationDate>
+        <health>75.0</health>
+        <achievements>Master of Reconnaissance, Silent Stalker</achievements>
+        <category>SCOUT</category>
+        <weapon>BOLT_RIFLE</weapon>
+        <chapter>
+            <name>Raven Guard</name>
+            <marinesCount>800</marinesCount>
+            <world>Deliverance</world>
+        </chapter>
+    </spacemarine>
+
+    <!-- Космодесантник 4: Апотекарий -->
+    <spacemarine>
+        <id>4</id>
+        <name>Brother-Apothecary Fabian</name>
+        <coordinates>
+            <x>300.0</x>
+            <y>150.0</y>
+        </coordinates>
+        <creationDate>2024-01-15T10:45:00+03:00</creationDate>
+        <health>110.0</health>
+        <achievements>Keeper of the Gene-Seed, Healer of the Chapter</achievements>
+        <category>APOTHECARY</category>
+        <weapon>PLASMA_GUN</weapon>
+        <chapter>
+            <name>Blood Angels</name>
+            <marinesCount>600</marinesCount>
+            <world>Baal</world>
+        </chapter>
+    </spacemarine>
+
+    <!-- Космодесантник 5: Штурмовик -->
+    <spacemarine>
+        <id>5</id>
+        <name>Brother-Chaplain Asmodai</name>
+        <coordinates>
+            <x>-50.0</x>
+            <y>200.0</y>
+        </coordinates>
+        <creationDate>2024-01-15T10:50:00+03:00</creationDate>
+        <health>180.0</health>
+        <achievements>Master of Sanctity, Keeper of the Repentia</achievements>
+        <category>AGGRESSOR</category>
+        <weapon>GRENADE_LAUNCHER</weapon>
+        <chapter>
+            <name>Dark Angels</name>
+            <marinesCount>700</marinesCount>
+            <world>The Rock</world>
+        </chapter>
+    </spacemarine>
+
+    <!-- Космодесантник 6: С плазмой -->
+    <spacemarine>
+        <id>6</id>
+        <name>Brother-Veteran Sorin</name>
+        <coordinates>
+            <x>420.0</x>
+            <y>85.0</y>
+        </coordinates>
+        <creationDate>2024-01-15T10:55:00+03:00</creationDate>
+        <health>145.0</health>
+        <achievements>Veteran of the Damnos Campaign</achievements>
+        <category>TACTICAL</category>
+        <weapon>PLASMA_GUN</weapon>
+        <chapter>
+            <name>Ultramarines</name>
+            <marinesCount>1000</marinesCount>
+            <world>Macragge</world>
+        </chapter>
+    </spacemarine>
+
+    <!-- Космодесантник 7: Минимальное здоровье -->
+    <spacemarine>
+        <id>7</id>
+        <name>Brother-Cadet Theron</name>
+        <coordinates>
+            <x>10.0</x>
+            <y>25.0</y>
+        </coordinates>
+        <creationDate>2024-01-15T11:00:00+03:00</creationDate>
+        <health>45.0</health>
+        <achievements>Initiate, learning the ways</achievements>
+        <category>SCOUT</category>
+        <weapon>MELTAGUN</weapon>
+        <chapter>
+            <name>Space Wolves</name>
+            <marinesCount>400</marinesCount>
+            <world>Fenris</world>
+        </chapter>
+    </spacemarine>
+
+    <!-- Космодесантник 8: Максимальное здоровье -->
+    <spacemarine>
+        <id>8</id>
+        <name>Brother-Ancient Dreadnought</name>
+        <coordinates>
+            <x>500.0</x>
+            <y>300.0</y>
+        </coordinates>
+        <creationDate>2024-01-15T11:05:00+03:00</creationDate>
+        <health>250.0</health>
+        <achievements>Entombed in sacred chassis, Hero of Istvaan</achievements>
+        <category>AGGRESSOR</category>
+        <weapon>GRENADE_LAUNCHER</weapon>
+        <chapter>
+            <name>Iron Hands</name>
+            <marinesCount>450</marinesCount>
+            <world>Medusa</world>
+        </chapter>
+    </spacemarine>
+
+    <!-- Космодесантник 9: С null достижениями -->
+    <spacemarine>
+        <id>9</id>
+        <name>Brother-Initiate Marcus</name>
+        <coordinates>
+            <x>80.0</x>
+            <y>90.0</y>
+        </coordinates>
+        <creationDate>2024-01-15T11:10:00+03:00</creationDate>
+        <health>60.0</health>
+        <achievements></achievements>  <!-- Пустые достижения = null -->
+        <category>SCOUT</category>
+        <weapon>BOLT_RIFLE</weapon>
+        <chapter>
+            <name>Imperial Fists</name>
+            <marinesCount>550</marinesCount>
+            <world>Inwit</world>
+        </chapter>
+    </spacemarine>
+
+    <!-- Космодесантник 10: С null категорией -->
+    <spacemarine>
+        <id>10</id>
+        <name>Brother-Librarian Mephiston</name>
+        <coordinates>
+            <x>600.0</x>
+            <y>400.0</y>
+        </coordinates>
+        <creationDate>2024-01-15T11:15:00+03:00</creationDate>
+        <health>190.0</health>
+        <achievements>Lord of Death, Master of the Vaults</achievements>
+        <category></category>  <!-- Пустая категория = null -->
+        <weapon>PLASMA_GUN</weapon>
+        <chapter>
+            <name>Blood Angels</name>
+            <marinesCount>600</marinesCount>
+            <world>Baal</world>
+        </chapter>
+    </spacemarine>
+</collection>

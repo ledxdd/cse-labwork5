@@ -1,12 +1,19 @@
 package cse_labwork5.src;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
+import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.util.Scanner;
 import java.util.TreeSet;
 
 public class Main {
+    static private double maximum_collection_health = -10000D;
+    static private double minimum_collection_health = 10000D;
+    static private TreeSet<SpaceMarine> collection;
+    static private LocalDateTime collection_init_date;
+    // static private BufferedReader bReader;
+    // static private BufferedWriter bWriter;
+    static private Scanner global_scanner;
+    // static private String PATH_TO_DATA = "/Users/led/Desktop/code/cse_labwork5/data/data.xml";
 
     public enum AstartesCategory {
         SCOUT,
@@ -35,10 +42,13 @@ public class Main {
 
         static private long next_id = 0L;
 
-
         // SETTERS
 
-        private boolean setName(String name) {
+        public void setNextId(long id) {
+            next_id = id;
+        }
+
+        public boolean setName(String name) {
             if (name == null || " ".equals(name) || name.trim().isEmpty()) {
                 System.out.println("Name can't be empty. Please enter the valid name!");
                 return false;
@@ -110,6 +120,10 @@ public class Main {
 
         public Long getId() {
             return id;
+        }
+
+        public long getNextId() {
+            return next_id;
         }
 
         public String getName() {
@@ -189,7 +203,7 @@ public class Main {
 
         @Override
         public int compareTo(SpaceMarine other) {
-            return this.id.compareTo(other.id);
+            return this.health.compareTo(other.health);
         }
 
     }
@@ -286,12 +300,7 @@ public class Main {
 
         // END OF GETTERS
     }
-
-    static private TreeSet<SpaceMarine> collection;
-    static private BufferedReader bReader;
-    static private BufferedWriter bWriter;
-    static private Scanner global_scanner;
-
+    
     static public void printHelp() {
         System.out.println("✅info : вывести в стандартный поток вывода информацию о коллекции (тип, дата инициализации, количество элементов и т.д.)");
         System.out.println("✅show : вывести в стандартный поток вывода все элементы коллекции в строковом представлении");
@@ -302,15 +311,70 @@ public class Main {
         System.out.println("save : сохранить коллекцию в файл");
         System.out.println("execute_script file_name : считать и исполнить скрипт из указанного файла. В скрипте содержатся команды в таком же виде, в котором их вводит пользователь в интерактивном режиме.");
         System.out.println("✅exit : завершить программу (без сохранения в файл)");
-        System.out.println("add_if_max {element} : добавить новый элемент в коллекцию, если его значение превышает значение наибольшего элемента этой коллекции");
-        System.out.println("add_if_min {element} : добавить новый элемент в коллекцию, если его значение меньше, чем у наименьшего элемента этой коллекции");
-        System.out.println("remove_lower {element} : удалить из коллекции все элементы, меньшие, чем заданный");
+        System.out.println("✅add_if_max {element} : добавить новый элемент в коллекцию, если его значение превышает значение наибольшего элемента этой коллекции");
+        System.out.println("✅add_if_min {element} : добавить новый элемент в коллекцию, если его значение меньше, чем у наименьшего элемента этой коллекции");
+        System.out.println("✅remove_lower {element} : удалить из коллекции все элементы, меньшие, чем заданный");
         System.out.println("✅average_of_health : вывести среднее значение поля health для всех элементов коллекции");
-        System.out.println("count_less_than_chapter chapter : вывести количество элементов, значение поля chapter которых меньше заданного");
-        System.out.println("print_field_ascending_achievements : вывести значения поля achievements всех элементов в порядке возрастания");
+        System.out.println("✅count_less_than_chapter chapter : вывести количество элементов, значение поля chapter которых меньше заданного");
+        System.out.println("✅print_field_ascending_achievements : вывести значения поля achievements всех элементов в порядке возрастания");
     }
 
-    static double getAvHealth() {
+    static void showInfo() {
+        System.out.println("\n" + "=".repeat(50));
+        System.out.println("📊 COLLECTION INFORMATION");
+        System.out.println("=".repeat(50));
+        System.out.println("📌 Collection type: TreeSet<SpaceMarine>");
+        System.out.println("📅 Initialized: " + collection_init_date);
+        System.out.println("📦 Elements count: " + collection.size());
+        System.out.println("=".repeat(50));
+    }
+
+    static void printFieldAscendingAchievments() {
+        int index = 1;
+        for (SpaceMarine marine : collection) {
+            System.out.println("\n🔹 MARINE #" + index++ + " (ID: " + marine.getId() + ")");
+            System.out.println("   ├─ Achievements: " + (marine.getAchievements() != null ? marine.getAchievements() : "null"));
+        }
+    }
+
+    static long countLessChptr() {
+        SpaceMarine marine = new SpaceMarine();
+        setMarineChapter(marine);
+
+        long cnt = 0;
+
+        for (SpaceMarine space_marine : collection) {
+            if (space_marine.getChapter().getMarinesCnt() < marine.getChapter().getMarinesCnt()) {
+                cnt++;
+            }
+        }
+
+        return cnt;
+    }
+
+    static void addIfMin() {
+        SpaceMarine marine = new SpaceMarine();
+
+        fillMarine(marine, "creation");
+        if (marine.getHealth() < minimum_collection_health) {
+            collection.add(marine);
+        } else {
+            System.out.println("Your element is not less than least element in current collection!");
+        }
+    }
+
+    static void addIfMax() {
+        SpaceMarine marine = new SpaceMarine();
+
+        fillMarine(marine, "creation");
+        if (marine.getHealth() > maximum_collection_health) {
+            collection.add(marine);
+        } else {
+            System.out.println("Your element is not bigger than max. element in current collection!");
+        }
+    }
+
+    static Double getAvHealth() {
         double result = 0;
         int cnt = 0;
         
@@ -347,6 +411,7 @@ public class Main {
             
             switch (command) {
                 case "exit" -> is_running = false;
+                case "info" -> showInfo();
                 case "help" -> printHelp();
                 case "clear()" -> {
                     for (int i = 0; i < 1200; i++) {
@@ -376,10 +441,33 @@ public class Main {
                     long id = Long.parseLong(arg);
                     removeById(id);
                 }
+                case "print_field_ascending_achievements" -> {
+                    printFieldAscendingAchievments();
+                }
+                case "add_if_min" -> {
+                    addIfMin();
+                }
+                case "add_if_max" -> {
+                    addIfMax();
+                }
+                case "remove_lower" -> {
+                    removeLower();
+                }
+                case "count_less_than_chapter" -> {
+                    System.out.println("Counter: " +  countLessChptr());
+                }
                 default -> { System.out.println("Wrong input! Type in 'help' for list of commands.");
                 }
             }
         } 
+    }
+
+    static void removeLower() {
+        SpaceMarine flag_marine = new SpaceMarine();
+
+        fillMarine(flag_marine, "creation");
+
+        collection.removeIf(marine -> marine.getHealth() < flag_marine.getHealth());
     }
 
     static void removeById(long id) {
@@ -453,76 +541,7 @@ public class Main {
         return !(name == null || " ".equals(name) || name.trim().isEmpty());
     }
 
-    static void fillMarine(SpaceMarine marine, String flag) {    
-        if ("creation".equals(flag)) {
-            System.out.println("*******| New marine creation |*******");
-        } else if ("update".equals(flag)) {
-            System.out.println("*******| Marine info  update |*******");
-        }
-
-        while (true) {   
-            System.out.println("Enter the marine name: ");
-            String name = global_scanner.nextLine();
-            
-            if (checkName(name)) {
-                marine.setName(name);
-                break;
-            } else {
-                System.out.println("Name can't be blank. Please, enter again: ");
-            }
-        }
-
-        while (true) { 
-            Coordinates coordinates = new Coordinates();
-
-            System.out.println("Enter x coordinate: ");
-            int x = global_scanner.nextInt();
-            global_scanner.nextLine();
-
-            System.out.println("Enter y coordinate: ");
-            int y = global_scanner.nextInt();
-            global_scanner.nextLine();
-
-            coordinates.setX(x);
-            coordinates.setY(y);
-
-            marine.setCoordinates(coordinates);
-
-            break;
-        }
-            
-        while (true) {
-            System.out.println("Enter marine's health: ");
-            String strhealth = global_scanner.nextLine().trim();
-
-            if (strhealth.isEmpty()) {
-                marine.setHealth(null);
-                break;
-            }
-
-            Double health = Double.valueOf(strhealth);
-
-            boolean ok = marine.setHealth(health);
-            
-            if (ok) {
-                break;
-            }
-        }
-
-        while (true) { 
-            System.out.println("Enter marine's achievments: ");
-
-            String achievs = global_scanner.nextLine();
-
-            if (achievs.isEmpty()) {
-                marine.setAchievments(null);
-                break;
-            }
-
-            marine.setAchievments(achievs);
-            break;
-        }
-
+    static void setCategory(SpaceMarine marine){
         boolean category_set = false;
 
         while (!category_set) {
@@ -559,7 +578,80 @@ public class Main {
                 default -> System.out.println("Wrong input! Try again!");
             }
         }
+    }
 
+    static void setMarineName(SpaceMarine marine) {
+        while (true) {   
+            System.out.println("Enter the marine name: ");
+            String name = global_scanner.nextLine();
+            
+            if (checkName(name)) {
+                marine.setName(name);
+                break;
+            } else {
+                System.out.println("Name can't be blank. Please, enter again: ");
+            }
+        }
+    }
+
+    static void setMarineCoordinates(SpaceMarine marine) {
+        while (true) { 
+            Coordinates coordinates = new Coordinates();
+
+            System.out.println("Enter x coordinate: ");
+            int x = global_scanner.nextInt();
+            global_scanner.nextLine();
+
+            System.out.println("Enter y coordinate: ");
+            int y = global_scanner.nextInt();
+            global_scanner.nextLine();
+
+            coordinates.setX(x);
+            coordinates.setY(y);
+
+            marine.setCoordinates(coordinates);
+
+            break;
+        }
+    }
+
+    static void setMarineHealth(SpaceMarine marine) {
+        while (true) {
+            System.out.println("Enter marine's health: ");
+            String strhealth = global_scanner.nextLine().trim();
+
+            if (strhealth.isEmpty()) {
+                marine.setHealth(null);
+                break;
+            }
+
+            Double health = Double.valueOf(strhealth);
+
+            boolean ok = marine.setHealth(health);
+            
+            if (ok) {
+                break;
+            }
+        }
+    }
+
+    static void setMarineAchievments(SpaceMarine marine) {
+        while (true) { 
+            System.out.println("Enter marine's achievments: ");
+
+            String achievs = global_scanner.nextLine();
+
+            if (achievs.isEmpty()) {
+                marine.setAchievments(null);
+                break;
+            }
+
+            marine.setAchievments(achievs);
+            break;
+        }
+    }
+
+    static void setMairneWeapon(SpaceMarine marine) {
         boolean weapon_set = false;
         while (!weapon_set) {
             System.out.println("Enter marine's weapon (pick one & type in only the name): ");
@@ -595,7 +687,9 @@ public class Main {
                 default -> System.out.println("Wrong input! Try again!");
             }
         }
+    }
 
+    static void setMarineChapter(SpaceMarine marine) {
         while (true) {
             int mrns_cnt = 0;
             boolean ok = false;
@@ -620,12 +714,64 @@ public class Main {
 
             marine.setChapter(chapter);
             break;
-        }    
+        } 
     }
+
+    static void setAllMC(SpaceMarine marine) {
+        setMarineName(marine);
+
+        setMarineCoordinates(marine);
+            
+        setMarineHealth(marine);
+
+        setMarineAchievments(marine);
+
+        setCategory(marine);
+
+        setMairneWeapon(marine);
+
+        setMarineChapter(marine);
+    }
+
+    static void fillMarine(SpaceMarine marine, String flag) {    
+        if ("creation".equals(flag)) {
+            System.out.println("*******| New marine creation |*******");
+        } else if ("update".equals(flag)) {
+            System.out.println("*******| Marine info  update |*******");
+        }
+
+        setAllMC(marine);
+
+        if (marine.getHealth() > maximum_collection_health) {
+            maximum_collection_health = marine.getHealth();
+        }
+
+        if (marine.getHealth() < minimum_collection_health) {
+            minimum_collection_health = marine.getHealth();
+        }
+    }
+
+    // File processor
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // End of file processor
 
     public static void main(String[] args) {
         collection = new TreeSet<>();
         global_scanner = new Scanner(System.in);
+        collection_init_date = LocalDateTime.now();
         
         runProgramm(collection);
     }
