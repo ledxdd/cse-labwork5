@@ -13,16 +13,32 @@ public class CountLessThanChapterCommand implements Command {
 
     @Override
     public void execute(String arg) {
-        System.out.println("Enter chapter marines count: ");
-        try {
-            int count = scanner.nextInt();
-            scanner.nextLine(); // consume newline
+        int count;
 
-            long result = collectionManager.countLessThanChapter(count);
-            System.out.println("Counter: " + result);
-        } catch (Exception e) {
-            System.out.println("Invalid input!");
-            scanner.nextLine();
+        // Проверяем, передан ли аргумент
+        if (arg != null && !arg.trim().isEmpty()) {
+            // Аргумент передан из скрипта
+            try {
+                count = Integer.parseInt(arg.trim());
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input! Marines count must be a number.");
+                return;
+            }
+        } else {
+            // Аргумент не передан - запрашиваем ввод
+            System.out.println("Enter chapter marines count: ");
+            try {
+                count = scanner.nextInt();
+                scanner.nextLine(); // consume newline
+            } catch (Exception e) {
+                System.out.println("Invalid input!");
+                scanner.nextLine();
+                return;
+            }
         }
+
+        long result = collectionManager.countLessThanChapter(count);
+        System.out.println("Counter: " + result);
     }
+
 }

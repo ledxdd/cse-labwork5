@@ -36,23 +36,36 @@ public class CollectionManager {
     }
 
     public SpaceMarine findById(long id) {
-        return collection.stream()
-                .filter(m -> m.getId() == id)
-                .findFirst()
-                .orElse(null);
+        for (SpaceMarine m : collection) {
+            if (m.getId().equals(id)) {
+                return m;
+            }
+        }
+        return null;
     }
 
     public double getAverageHealth() {
-        return collection.stream()
-                .mapToDouble(SpaceMarine::getHealth)
-                .average()
-                .orElse(0.0);
+        double res = 0d;
+        int cnt = 0;
+
+        for (SpaceMarine m : collection) {
+            res += m.getHealth();
+            cnt++;
+        }
+
+        return res / cnt;
     }
 
     public long countLessThanChapter(int marinesCount) {
-        return collection.stream()
-                .filter(m -> m.getChapter().getMarinesCnt() < marinesCount)
-                .count();
+        long cnt = 0;
+
+        for (SpaceMarine m : collection) {
+            if (m.getChapter().getMarinesCnt() < marinesCount) {
+                cnt++;
+            }
+        }
+
+        return cnt;
     }
 
     public void removeLower(double health) {
@@ -74,19 +87,35 @@ public class CollectionManager {
     }
 
     private void recalculateHealthBounds() {
-        maxHealth = collection.stream()
-                .mapToDouble(SpaceMarine::getHealth)
-                .max()
-                .orElse(-10000D);
-        minHealth = collection.stream()
-                .mapToDouble(SpaceMarine::getHealth)
-                .min()
-                .orElse(10000D);
+        double mxh = -1000000;
+        double mh = 1000000;
+
+        for (SpaceMarine m : collection) {
+            if (m.getHealth() > mxh) mxh = m.getHealth();
+        }
+
+        for (SpaceMarine m : collection) {
+            if (m.getHealth() < mh) mh = m.getHealth();
+        }
+
+        minHealth = mh;
+        maxHealth = mxh;
     }
 
     // Getters
-    public TreeSet<SpaceMarine> getCollection() { return collection; }
-    public LocalDateTime getInitDate() { return initDate; }
-    public int size() { return collection.size(); }
-    public boolean isEmpty() { return collection.isEmpty(); }
+    public TreeSet<SpaceMarine> getCollection() {
+        return collection;
+    }
+
+    public LocalDateTime getInitDate() {
+        return initDate;
+    }
+
+    public int size() {
+        return collection.size();
+    }
+
+    public boolean isEmpty() {
+        return collection.isEmpty();
+    }
 }

@@ -14,7 +14,7 @@ public class SpaceMarine implements Comparable<SpaceMarine> {
     private Weapon weaponType; //Поле может быть null
     private Chapter chapter; //Поле не может быть null
 
-    static private long next_id = 0L;
+    static private long next_id = 1L;
 
     // SETTERS
 

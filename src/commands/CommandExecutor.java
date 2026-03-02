@@ -35,6 +35,8 @@ public class CommandExecutor {
         registry.register("average_of_health", new AverageHealthCommand(collectionManager));
         registry.register("count_less_than_chapter", new CountLessThanChapterCommand(collectionManager));
         registry.register("print_field_ascending_achievements", new PrintAchievementsCommand(collectionManager));
+        registry.register("execute_script", new ExecuteCommand(this, marineFactory, collectionManager));
+
     }
 
     public boolean isRunning() {

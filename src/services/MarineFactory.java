@@ -1,15 +1,42 @@
 package cse_labwork5.src.services;
 
 import cse_labwork5.src.models.*;
+
+import java.io.*;
+import java.nio.Buffer;
 import java.util.Scanner;
 
 public class MarineFactory {
-    private Scanner scanner;
-    private CollectionManager collectionManager;
+    private final Scanner scanner;
 
     public MarineFactory(Scanner scanner, CollectionManager collectionManager) {
         this.scanner = scanner;
-        this.collectionManager = collectionManager;
+    }
+
+    public SpaceMarine createMarineFromFile(String path, BufferedReader br) throws IOException {
+        SpaceMarine marine = new SpaceMarine();
+        Coordinates crdnts = new Coordinates();
+        Chapter chapter = new Chapter();
+
+        String line = br.readLine();
+        marine.setName(line);
+        crdnts.setX(Double.parseDouble(br.readLine()));
+        crdnts.setY((float) Double.parseDouble(br.readLine()));
+
+        marine.setCoordinates(crdnts);
+        marine.setHealth(Double.valueOf(br.readLine()));
+
+        marine.setAchievments(br.readLine());
+        marine.setCategory(AstartesCategory.valueOf(br.readLine()));
+
+        marine.setWeaponType(Weapon.valueOf(br.readLine()));
+        chapter.setName(br.readLine());
+        chapter.setMarinesCount(Integer.parseInt(br.readLine()));
+        chapter.setWorld(br.readLine());
+
+        marine.setChapter(chapter);
+
+        return marine;
     }
 
     public SpaceMarine createMarine(String mode) {
@@ -86,8 +113,8 @@ public class MarineFactory {
 
     private void setAchievements(SpaceMarine marine) {
         System.out.println("Enter marine's achievements: ");
-        String achievs = scanner.nextLine();
-        marine.setAchievments(achievs.isEmpty() ? null : achievs);
+        String achieves = scanner.nextLine();
+        marine.setAchievments(achieves.isEmpty() ? null : achieves);
     }
 
     private void setCategory(SpaceMarine marine) {

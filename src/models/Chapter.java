@@ -11,6 +11,10 @@ public class Chapter {
         this.world = wrld;
     }
 
+    public Chapter() {
+
+    }
+
     public boolean setName(String name) {
         if (name.isEmpty()) return false;
         this.name = name;

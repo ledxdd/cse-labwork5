@@ -13,10 +13,14 @@ public class PrintAchievementsCommand implements Command {
     @Override
     public void execute(String arg) {
         int index = 1;
-        for (SpaceMarine marine : collectionManager.getCollection()) {
-            System.out.println("\n🔹 MARINE #" + index++ + " (ID: " + marine.getId() + ")");
-            System.out.println("   ├─ Achievements: " +
-                    (marine.getAchievements() != null ? marine.getAchievements() : "null"));
+        if (collectionManager.isEmpty()) {
+            System.out.println("Collection is empty!");
+        } else {
+            for (SpaceMarine marine : collectionManager.getCollection()) {
+                System.out.println("\n🔹 MARINE #" + index++ + " (ID: " + marine.getId() + ")");
+                System.out.println("   ├─ Achievements: " +
+                        (marine.getAchievements() != null ? marine.getAchievements() : "null"));
+            }
         }
     }
 }

@@ -27,6 +27,7 @@ gradle-app.setting
 *.iws
 *.ipr
 out/
+cse_labwork5.iml
 
 # Eclipse
 .settings/
