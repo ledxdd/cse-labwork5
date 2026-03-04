@@ -11,21 +11,21 @@ public class Printer {
     }
 
     public void printHelp() {
-        System.out.println("✅info : вывести информацию о коллекции");
-        System.out.println("✅show : вывести все элементы коллекции");
-        System.out.println("✅add {element} : добавить новый элемент");
-        System.out.println("✅update id {element} : обновить элемент");
-        System.out.println("✅remove_by_id id : удалить элемент по id");
-        System.out.println("✅clear : очистить коллекцию");
+        System.out.println("info : вывести информацию о коллекции");
+        System.out.println("show : вывести все элементы коллекции");
+        System.out.println("add {element} : добавить новый элемент");
+        System.out.println("update id {element} : обновить элемент");
+        System.out.println("remove_by_id id : удалить элемент по id");
+        System.out.println("clear : очистить коллекцию");
         System.out.println("save : сохранить коллекцию в файл");
         System.out.println("execute_script file_name : исполнить скрипт");
-        System.out.println("✅exit : завершить программу");
-        System.out.println("✅add_if_max {element} : добавить, если больше максимального");
-        System.out.println("✅add_if_min {element} : добавить, если меньше минимального");
-        System.out.println("✅remove_lower {element} : удалить меньшие элементы");
-        System.out.println("✅average_of_health : среднее значение health");
-        System.out.println("✅count_less_than_chapter chapter : количество элементов с chapter меньше");
-        System.out.println("✅print_field_ascending_achievements : значения achievements по возрастанию");
+        System.out.println("exit : завершить программу");
+        System.out.println("add_if_max {element} : добавить, если больше максимального");
+        System.out.println("add_if_min {element} : добавить, если меньше минимального");
+        System.out.println("remove_lower {element} : удалить меньшие элементы");
+        System.out.println("average_of_health : среднее значение health");
+        System.out.println("count_less_than_chapter chapter : количество элементов с chapter меньше");
+        System.out.println("print_field_ascending_achievements : значения achievements по возрастанию");
     }
 
     public void printInfo() {
