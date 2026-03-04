@@ -15,10 +15,9 @@ public class Chapter {
 
     }
 
-    public boolean setName(String name) {
-        if (name.isEmpty()) return false;
+    public void setName(String name) {
+        if (name.isEmpty()) return;
         this.name = name;
-        return true;
     }
 
     public void setMarinesCount(int cnt) { 

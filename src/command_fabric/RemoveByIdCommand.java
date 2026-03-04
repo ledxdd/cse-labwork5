@@ -1,4 +1,4 @@
-package cse_labwork5.src.commands;
+package cse_labwork5.src.command_fabric;
 
 import cse_labwork5.src.services.CollectionManager;
 
@@ -21,9 +21,9 @@ public class RemoveByIdCommand implements Command {
             boolean removed = collectionManager.removeById(id);
 
             if (removed) {
-                System.out.println("Marine with id {" + id + "} was removed!");
+                System.out.println("Marine with id: " + id + "was removed");
             } else {
-                System.out.println("Marine with id {" + id + "} not found!");
+                System.out.println("Marine with id: " + id + "was not found");
             }
         } catch (NumberFormatException e) {
             System.out.println("Invalid id format!");

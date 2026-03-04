@@ -1,4 +1,4 @@
-package cse_labwork5.src.commands;
+package cse_labwork5.src.command_fabric;
 
 import cse_labwork5.src.services.CollectionManager;
 
@@ -12,7 +12,7 @@ public class ClearCommand implements Command {
     @Override
     public void execute(String arg) {
         if (collectionManager.isEmpty()) {
-            System.out.println("Nothing to clear. Collection is already empty!");
+            System.out.println("Nothing to clear!");
         } else {
             collectionManager.clear();
             System.out.println("Collection cleared!");

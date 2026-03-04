@@ -1,4 +1,4 @@
-package cse_labwork5.src.commands;
+package cse_labwork5.src.command_fabric;
 
 public class ExitCommand implements Command {
     private final Runnable exitAction;

@@ -1,8 +1,10 @@
-package cse_labwork5.src.commands;
+package cse_labwork5.src.command_fabric;
 
 import cse_labwork5.src.services.CollectionManager;
 import cse_labwork5.src.services.MarineFactory;
 import cse_labwork5.src.utils.Printer;
+
+import java.io.IOException;
 import java.util.Scanner;
 
 public class CommandExecutor {
@@ -12,7 +14,7 @@ public class CommandExecutor {
     private final CommandReg registry;
     private boolean isRunning = true;
 
-    public CommandExecutor(CollectionManager collectionManager, Scanner scanner) {
+    public CommandExecutor(CollectionManager collectionManager, Scanner scanner) throws IOException {
         this.collectionManager = collectionManager;
         this.marineFactory = new MarineFactory(scanner, collectionManager);
         this.printer = new Printer(collectionManager);
@@ -20,7 +22,7 @@ public class CommandExecutor {
         registerCommands();
     }
 
-    private void registerCommands() {
+    private void registerCommands() throws IOException {
         registry.register("help", new HelpCommand(registry, printer));
         registry.register("info", new InfoCommand(collectionManager, printer));
         registry.register("show", new ShowCommand(collectionManager, printer));
@@ -36,7 +38,7 @@ public class CommandExecutor {
         registry.register("count_less_than_chapter", new CountLessThanChapterCommand(collectionManager));
         registry.register("print_field_ascending_achievements", new PrintAchievementsCommand(collectionManager));
         registry.register("execute_script", new ExecuteCommand(this, marineFactory, collectionManager));
-
+        registry.register("save", new SaveCommand(marineFactory, collectionManager));
     }
 
     public boolean isRunning() {
@@ -55,7 +57,7 @@ public class CommandExecutor {
                 System.out.println("Error executing command: " + e.getMessage());
             }
         } else {
-            System.out.println("Wrong input! Type 'help' for list of commands.");
+            System.out.println("Wrong input! Type 'help' for list of commands");
         }
     }
 }

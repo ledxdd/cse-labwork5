@@ -1,4 +1,4 @@
-package cse_labwork5.src.commands;
+package cse_labwork5.src.command_fabric;
 
 import cse_labwork5.src.services.CollectionManager;
 import java.util.Scanner;
@@ -15,9 +15,7 @@ public class CountLessThanChapterCommand implements Command {
     public void execute(String arg) {
         int count;
 
-        // Проверяем, передан ли аргумент
         if (arg != null && !arg.trim().isEmpty()) {
-            // Аргумент передан из скрипта
             try {
                 count = Integer.parseInt(arg.trim());
             } catch (NumberFormatException e) {
@@ -25,11 +23,10 @@ public class CountLessThanChapterCommand implements Command {
                 return;
             }
         } else {
-            // Аргумент не передан - запрашиваем ввод
             System.out.println("Enter chapter marines count: ");
             try {
                 count = scanner.nextInt();
-                scanner.nextLine(); // consume newline
+                scanner.nextLine();
             } catch (Exception e) {
                 System.out.println("Invalid input!");
                 scanner.nextLine();

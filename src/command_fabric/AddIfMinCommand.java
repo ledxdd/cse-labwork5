@@ -1,14 +1,14 @@
-package cse_labwork5.src.commands;
+package cse_labwork5.src.command_fabric;
 
 import cse_labwork5.src.models.SpaceMarine;
 import cse_labwork5.src.services.CollectionManager;
 import cse_labwork5.src.services.MarineFactory;
 
-public class AddIfMaxCommand implements Command {
+public class AddIfMinCommand implements Command {
     private final MarineFactory marineFactory;
     private final CollectionManager collectionManager;
 
-    public AddIfMaxCommand(MarineFactory marineFactory, CollectionManager collectionManager) {
+    public AddIfMinCommand(MarineFactory marineFactory, CollectionManager collectionManager) {
         this.marineFactory = marineFactory;
         this.collectionManager = collectionManager;
     }
@@ -17,11 +17,11 @@ public class AddIfMaxCommand implements Command {
     public void execute(String arg) {
         SpaceMarine marine = marineFactory.createMarine("creation");
 
-        if (collectionManager.isGreaterThanMax(marine.getHealth())) {
+        if (collectionManager.isLessThanMin(marine.getHealth())) {
             collectionManager.add(marine);
             System.out.println("Marine added successfully!");
         } else {
-            System.out.println("Your element is not bigger than max element in current collection!");
+            System.out.println("Your element is not less than least element in current collection!");
         }
     }
 }

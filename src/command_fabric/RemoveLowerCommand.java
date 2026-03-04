@@ -1,4 +1,4 @@
-package cse_labwork5.src.commands;
+package cse_labwork5.src.command_fabric;
 
 import cse_labwork5.src.models.SpaceMarine;
 import cse_labwork5.src.services.CollectionManager;
@@ -17,6 +17,6 @@ public class RemoveLowerCommand implements Command {
     public void execute(String arg) {
         SpaceMarine flagMarine = marineFactory.createMarine("creation");
         collectionManager.removeLower(flagMarine.getHealth());
-        System.out.println("Removed all marines with health lower than " + flagMarine.getHealth());
+        System.out.println("Removed all marines with health lower than: " + flagMarine.getHealth());
     }
 }

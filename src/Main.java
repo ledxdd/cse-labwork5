@@ -1,11 +1,13 @@
 package cse_labwork5.src;
 
 import cse_labwork5.src.services.CollectionManager;
-import cse_labwork5.src.commands.CommandExecutor;
+import cse_labwork5.src.command_fabric.CommandExecutor;
+
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         CollectionManager collectionManager = new CollectionManager();
         Scanner scanner = new Scanner(System.in);
         CommandExecutor executor = new CommandExecutor(collectionManager, scanner);
