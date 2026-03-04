@@ -15,17 +15,55 @@
 
 ### 📦 Структура проекта
 ```
-cse-labwork5/
+cse_labwork5/
+│
+├── data/
+│   └── data.xml
+│
+├── scripts/
+│   └── test_script.txt
+│
 ├── src/
-│   └── cse_labwork5/
-│       └── src/
-│           └── Main.java          # Основной класс приложения
-├── data/                           # Директория для XML файлов
-│   └── marines.xml                 # Пример файла с данными
-├── scripts/                        # Директория для скриптов
-│   └── test.txt                    # Пример скрипта
-├── README.md                       
-└── .gitignore
+│   │
+│   ├── command_fabric/          
+│   │   ├── AddCommand.java
+│   │   ├── AddIfMaxCommand.java
+│   │   ├── AddIfMinCommand.java
+│   │   ├── AverageHealthCommand.java
+│   │   ├── ClearCommand.java
+│   │   ├── Command.java          
+│   │   ├── CommandExecutor.java  
+│   │   ├── CommandReg.java       
+│   │   ├── CountLessThanChapterCommand.java
+│   │   ├── ExecuteCommand.java   
+│   │   ├── ExitCommand.java
+│   │   ├── HelpCommand.java
+│   │   ├── InfoCommand.java
+│   │   ├── PrintAchievementsCommand.java
+│   │   ├── RemoveByIdCommand.java
+│   │   ├── RemoveLowerCommand.java
+│   │   ├── SaveCommand.java      
+│   │   ├── ShowCommand.java
+│   │   └── UpdateCommand.java
+│   │
+│   ├── models/                    
+│   │   ├── AstartesCategory.java  
+│   │   ├── Chapter.java           
+│   │   ├── Coordinates.java       
+│   │   ├── SpaceMarine.java       
+│   │   └── Weapon.java            
+│   │
+│   ├── services/                  
+│   │   ├── CollectionManager.java 
+│   │   └── MarineFactory.java     
+│   │
+│   └── utils/
+│   │   └── Printer.java
+│   └── Main.java
+│
+├── .md/
+│    └── Task.md 
+└── README.md
 ```
 
 ## 🎮 Реализованные команды
