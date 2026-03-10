@@ -30,22 +30,22 @@ public class Printer {
 
     public void printInfo() {
         System.out.println("\n" + "=".repeat(50));
-        System.out.println("📊 COLLECTION INFORMATION");
+        System.out.println("Collection info:");
         System.out.println("=".repeat(50));
-        System.out.println("📌 Collection type: TreeSet<SpaceMarine>");
-        System.out.println("📅 Initialized: " + collectionManager.getInitDate());
-        System.out.println("📦 Elements count: " + collectionManager.size());
+        System.out.println("Type: TreeSet<SpaceMarine>");
+        System.out.println("Init. date: " + collectionManager.getInitDate());
+        System.out.println("Elements count: " + collectionManager.size());
         System.out.println("=".repeat(50));
     }
 
     public void printCollection() {
         if (collectionManager.isEmpty()) {
-            System.out.println("📭 Collection is empty!");
+            System.out.println("Collection is empty!");
             return;
         }
 
         System.out.println("\n" + "=".repeat(100));
-        System.out.println("📋 COLLECTION CONTENTS (total: " + collectionManager.size() + " marines)");
+        System.out.println("Total marines: " + collectionManager.size());
         System.out.println("=".repeat(100));
 
         int index = 1;
@@ -56,7 +56,7 @@ public class Printer {
     }
 
     private void printMarine(SpaceMarine m, int index) {
-        System.out.println("\n🔹 MARINE #" + index + " (ID: " + m.getId() + ")");
+        System.out.println("\nMARINE. num. :" + index + " (ID: " + m.getId() + ")");
         System.out.println("   ├─ Name: " + m.getName());
         System.out.println("   ├─ Coordinates: (" + m.getCoordinates().getX() + ", " + m.getCoordinates().getY() + ")");
         System.out.println("   ├─ Created: " + m.getCreationDate());
