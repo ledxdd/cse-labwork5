@@ -17,6 +17,6 @@ public class AddCommand implements Command {
     public void execute(String arg) {
         SpaceMarine marine = marineFactory.createMarine("creation");
         collectionManager.add(marine);
-        System.out.println("New marine added! His id is: " + marine.getId());
+        System.out.println("Новый десантник добавлен! Его ID: " + marine.getId());
     }
 }

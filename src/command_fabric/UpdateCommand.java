@@ -16,7 +16,7 @@ public class UpdateCommand implements Command {
     @Override
     public void execute(String arg) {
         if (arg == null) {
-            System.out.println("Please provide an id: update <id>");
+            System.out.println("Пожалуйста введите id: update <id>");
             return;
         }
 
@@ -25,7 +25,7 @@ public class UpdateCommand implements Command {
             SpaceMarine oldMarine = collectionManager.findById(id);
 
             if (oldMarine == null) {
-                System.out.println("Marine with id " + id + " not found!");
+                System.out.println("Десантник с id " + id + " не найден!");
                 return;
             }
 
@@ -36,9 +36,9 @@ public class UpdateCommand implements Command {
             collectionManager.remove(oldMarine);
             collectionManager.add(newMarine);
 
-            System.out.println("Marine updated successfully!");
+            System.out.println("Десантник добавлен успешно!");
         } catch (NumberFormatException e) {
-            System.out.println("Invalid id format!");
+            System.out.println("Неверный формат id!");
         }
     }
 }

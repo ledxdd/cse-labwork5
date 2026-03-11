@@ -17,6 +17,6 @@ public class RemoveLowerCommand implements Command {
     public void execute(String arg) {
         SpaceMarine flagMarine = marineFactory.createMarine("creation");
         collectionManager.removeLower(flagMarine.getHealth());
-        System.out.println("Removed all marines with health lower than: " + flagMarine.getHealth());
+        System.out.println("Удалены все десантники с здоровьем ниже: " + flagMarine.getHealth());
     }
 }

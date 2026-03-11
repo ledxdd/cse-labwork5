@@ -54,10 +54,10 @@ public class CommandExecutor {
             try {
                 registry.get(commandName).execute(arg);
             } catch (Exception e) {
-                System.out.println("Error executing command: " + e.getMessage());
+                System.out.println("Проблема с выполнением команды: " + e.getMessage());
             }
         } else {
-            System.out.println("Wrong input! Type 'help' for list of commands");
+            System.out.println("Неверный ввод! Введите 'help' для отображения списка команд");
         }
     }
 }

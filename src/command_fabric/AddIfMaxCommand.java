@@ -19,9 +19,9 @@ public class AddIfMaxCommand implements Command {
 
         if (collectionManager.isGreaterThanMax(marine.getHealth())) {
             collectionManager.add(marine);
-            System.out.println("Marine added successfully!");
+            System.out.println("Десантник добавлен успешно!");
         } else {
-            System.out.println("Your element is not bigger than max element in current collection!");
+            System.out.println("Ваш элемент не больше остальных элементов в коллекции!");
         }
     }
 }

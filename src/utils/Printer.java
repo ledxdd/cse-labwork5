@@ -13,8 +13,8 @@ public class Printer {
     public void printHelp() {
         System.out.println("info : вывести информацию о коллекции");
         System.out.println("show : вывести все элементы коллекции");
-        System.out.println("add {element} : добавить новый элемент");
-        System.out.println("update id {element} : обновить элемент");
+        System.out.println("add {element} : добавить новый элемент (Элемент будет вводиться построчно после написание команды add)");
+        System.out.println("update {id} {element} : обновить элемент (id вводится в той же строке что и update, (Элемент будет вводиться построчно после написание команды update {id}))");
         System.out.println("remove_by_id id : удалить элемент по id");
         System.out.println("clear : очистить коллекцию");
         System.out.println("save : сохранить коллекцию в файл");
@@ -30,17 +30,17 @@ public class Printer {
 
     public void printInfo() {
         System.out.println("\n" + "=".repeat(50));
-        System.out.println("Collection info:");
+        System.out.println("Информация о коллекции:");
         System.out.println("=".repeat(50));
-        System.out.println("Type: TreeSet<SpaceMarine>");
-        System.out.println("Init. date: " + collectionManager.getInitDate());
-        System.out.println("Elements count: " + collectionManager.size());
+        System.out.println("Тип: TreeSet<SpaceMarine>");
+        System.out.println("Дата инициализации: " + collectionManager.getInitDate());
+        System.out.println("Количество элементов: " + collectionManager.size());
         System.out.println("=".repeat(50));
     }
 
     public void printCollection() {
         if (collectionManager.isEmpty()) {
-            System.out.println("Collection is empty!");
+            System.out.println("Коллекция пуста!");
             return;
         }
 

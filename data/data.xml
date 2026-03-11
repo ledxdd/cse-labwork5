@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<collection>
+    <spacemarine>
+        <id>1</id>
+        <name>name</name>
+        <coordinates>
+            <x>Infinity</x>
+            <y>-12.0</y>
+        </coordinates>
+        <health>120.01</health>
+        <achievements>jhgjh jkhiu ersregwg</achievements>
+        <category>SCOUT</category>
+        <weapon>MELTAGUN</weapon>
+        <chapter>
+            <name>head</name>
+            <marinesCount>999</marinesCount>
+            <world>world</world>
+        </chapter>
+    </spacemarine>
+</collection>

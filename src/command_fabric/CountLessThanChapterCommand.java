@@ -19,23 +19,23 @@ public class CountLessThanChapterCommand implements Command {
             try {
                 count = Integer.parseInt(arg.trim());
             } catch (NumberFormatException e) {
-                System.out.println("Invalid input! Marines count must be a number.");
+                System.out.println("Неверный ввод! Ожидается число.");
                 return;
             }
         } else {
-            System.out.println("Enter chapter marines count: ");
+            System.out.println("Введите количество десантников в главе: ");
             try {
                 count = scanner.nextInt();
                 scanner.nextLine();
             } catch (Exception e) {
-                System.out.println("Invalid input!");
+                System.out.println("Неверный ввод!");
                 scanner.nextLine();
                 return;
             }
         }
 
         long result = collectionManager.countLessThanChapter(count);
-        System.out.println("Counter: " + result);
+        System.out.println("Счетчик: " + result);
     }
 
 }

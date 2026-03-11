@@ -179,4 +179,20 @@ public class SpaceMarine implements Comparable<SpaceMarine> {
     public int compareTo(SpaceMarine other) {
         return this.health.compareTo(other.getHealth());
     }
+
+    public void setAchievements(String string) {
+        this.achievements = string;
+    }
+
+    public void setWeapon(String weaponStr) {
+        if ("MELTAGUN".equals(weaponStr)) {
+            this.weaponType = Weapon.MELTAGUN;
+        } else if ("BOLT_RIFLE".equals(weaponStr)) {
+            this.weaponType = Weapon.BOLT_RIFLE;
+        } else if ("PLASMA_GUN".equals(weaponStr)) {
+            this.weaponType = Weapon.PLASMA_GUN;
+        } else if ("GRENADE_LAUNCHER".equals(weaponStr)) {
+            this.weaponType = Weapon.GRENADE_LAUNCHER;
+        }
+    }
 }

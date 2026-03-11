@@ -12,10 +12,10 @@ public class ClearCommand implements Command {
     @Override
     public void execute(String arg) {
         if (collectionManager.isEmpty()) {
-            System.out.println("Nothing to clear!");
+            System.out.println("Нечего очищать!");
         } else {
             collectionManager.clear();
-            System.out.println("Collection cleared!");
+            System.out.println("Коллекция очищена!");
         }
     }
 }

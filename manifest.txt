@@ -1,4 +1,1 @@
-Manifest-Version: 1.0
 Main-Class: cse_labwork5.src.Main
-
-cd

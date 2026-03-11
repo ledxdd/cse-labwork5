@@ -12,6 +12,6 @@ public class AverageHealthCommand implements Command {
     @Override
     public void execute(String arg) {
         double average = collectionManager.getAverageHealth();
-        System.out.println("Average health: " + average);
+        System.out.println("Усредненное здоровье: " + average);
     }
 }

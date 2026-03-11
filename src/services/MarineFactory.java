@@ -19,8 +19,18 @@ public class MarineFactory {
 
         String line = br.readLine();
         marine.setName(line);
-        crdnts.setX(Double.parseDouble(br.readLine()));
-        crdnts.setY((float) Double.parseDouble(br.readLine()));
+        double x = Double.parseDouble(br.readLine());
+        if (Double.isInfinite(x) || x > Double.MAX_VALUE) {
+            System.out.println("Координата слишком большая. Невозможно добавить десантника.");
+            return null;
+        }
+        crdnts.setX(x);
+        double y = Double.parseDouble(br.readLine());
+        if (Double.isInfinite(y) || y > Double.MAX_VALUE) {
+            System.out.println("Координата слишком большая. Невозможно добавить десантника.");
+            return null;
+        }
+        crdnts.setY((float) y);
 
         marine.setCoordinates(crdnts);
         marine.setHealth(Double.valueOf(br.readLine()));
@@ -40,9 +50,9 @@ public class MarineFactory {
 
     public SpaceMarine createMarine(String mode) {
         if ("creation".equals(mode)) {
-            System.out.println("*******| New marine creation |*******");
+            System.out.println("*******| Создание нового десантника |*******");
         } else {
-            System.out.println("*******| Marine info update |*******");
+            System.out.println("*******| Обновление данных десантника |*******");
         }
 
         SpaceMarine marine = new SpaceMarine();
@@ -60,14 +70,14 @@ public class MarineFactory {
 
     private void setName(SpaceMarine marine) {
         while (true) {
-            System.out.println("Enter the marine name: ");
+            System.out.println("Введите имя десантника: ");
             String name = scanner.nextLine().trim();
 
             if (!name.isEmpty()) {
                 marine.setName(name);
                 return;
             }
-            System.out.println("Name can't be blank. Please, enter again.");
+            System.out.println("Имя не может быть пустым. Попробуйте снова.");
         }
     }
 
@@ -75,26 +85,33 @@ public class MarineFactory {
         Coordinates coordinates = new Coordinates();
 
         while (true) {
-            System.out.println("Enter x coordinate: ");
+            System.out.println("Введите х координату: ");
             String input = scanner.nextLine().trim();
             try {
                 double x = Double.parseDouble(input);
-                coordinates.setX(x);
-                break;
+                if (Double.isInfinite(x) || x > Double.MAX_VALUE) {
+                    System.out.println("Неверный формат ввода, число слишком большое!");
+                } else {
+                    coordinates.setX(x);
+                    break;
+                }
             } catch (NumberFormatException e) {
-                System.out.println("Invalid number format!");
+                System.out.println("Неверный формат ввода!");
             }
         }
 
         while (true) {
-            System.out.println("Enter y coordinate: ");
+            System.out.println("Введите у координату: ");
             String input = scanner.nextLine().trim();
             try {
-                float y = Float.parseFloat(input);
-                coordinates.setY(y);
+                double y = Double.parseDouble(input);
+                if (Double.isInfinite(y) || y > Double.MAX_VALUE) {
+                    System.out.println("неверный формат ввода, число слишком большое!");
+                }
+                coordinates.setY((float) y);
                 break;
             } catch (NumberFormatException e) {
-                System.out.println("Invalid number format!");
+                System.out.println("Неверный формат ввода!");
             }
         }
 
@@ -103,7 +120,7 @@ public class MarineFactory {
 
     private void setHealth(SpaceMarine marine) {
         while (true) {
-            System.out.println("Enter marine's health: ");
+            System.out.println("Введите здоровье десантника: ");
             String input = scanner.nextLine().trim();
 
             if (input.isEmpty()) {
@@ -117,22 +134,22 @@ public class MarineFactory {
                     marine.setHealth(health);
                     return;
                 }
-                System.out.println("Health must be greater than 0!");
+                System.out.println("Здоровье должно быть больше 0!");
             } catch (NumberFormatException e) {
-                System.out.println("Invalid number format!");
+                System.out.println("Неверный формат ввода!");
             }
         }
     }
 
     private void setAchievements(SpaceMarine marine) {
-        System.out.println("Enter marine's achievements: ");
+        System.out.println("Введите достижения десантника: ");
         String achieves = scanner.nextLine().trim();
         marine.setAchievments(achieves.isEmpty() ? null : achieves);
     }
 
     private void setCategory(SpaceMarine marine) {
         while (true) {
-            System.out.println("Enter marine's category: ");
+            System.out.println("Введите категорию десантника: ");
             System.out.println("1.SCOUT,\n2.AGGRESSOR,\n3.TACTICAL,\n4.APOTHECARY");
 
             String input = scanner.nextLine().trim().toUpperCase();
@@ -147,14 +164,14 @@ public class MarineFactory {
                 marine.setCategory(category);
                 return;
             } catch (IllegalArgumentException e) {
-                System.out.println("Wrong input! Try again! (Type 'help' to see list of commands)");
+                System.out.println("Неверный ввод! Попробуйте снова! (Введите 'help' для отображения доступных команд)");
             }
         }
     }
 
     private void setWeapon(SpaceMarine marine) {
         while (true) {
-            System.out.println("Enter marine's weapon: ");
+            System.out.println("Введите оружие десантника: ");
             System.out.println("1.MELTAGUN,\n2.BOLT_RIFLE,\n3.PLASMA_GUN,\n4.GRENADE_LAUNCHER");
 
             String input = scanner.nextLine().trim().toUpperCase();
@@ -169,7 +186,7 @@ public class MarineFactory {
                 marine.setWeaponType(weapon);
                 return;
             } catch (IllegalArgumentException e) {
-                System.out.println("Wrong input! Try again!");
+                System.out.println("Неверный ввод! Попробуйте снова");
             }
         }
     }
@@ -177,28 +194,153 @@ public class MarineFactory {
     private void setChapter(SpaceMarine marine) {
         String name;
         while (true) {
-            System.out.println("Enter marine's chapter name: ");
+            System.out.println("Введите название главы десантника: ");
             name = scanner.nextLine().trim();
             if (!name.isEmpty()) break;
-            System.out.println("Chapter name can't be blank!");
+            System.out.println("Имя главы не может быть пустым!");
         }
 
         int count;
         while (true) {
-            System.out.println("Enter marine's chapter marinesCount (1-1000): ");
+            System.out.println("Введите количество десантников в главе (1-1000): ");
             String input = scanner.nextLine().trim();
             try {
                 count = Integer.parseInt(input);
                 if (count > 0 && count <= 1000) break;
-                System.out.println("Count must be between 1 and 1000.");
+                System.out.println("Число должно быть между 1 и 1000.");
             } catch (NumberFormatException e) {
-                System.out.println("Invalid number format!");
+                System.out.println("Неверный формат ввода!");
             }
         }
 
-        System.out.println("Enter marine's chapter world: ");
+        System.out.println("Введите мир главы десантника: ");
         String world = scanner.nextLine().trim();
 
         marine.setChapter(new Chapter(name, count, world.isEmpty() ? null : world));
+    }
+
+    public static void loadDataFromXML(String filePath, CollectionManager collectionManager) {
+        File file = new File(filePath);
+
+        if (!file.exists()) {
+            return;
+        }
+
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+            String line;
+            StringBuilder currentMarine = new StringBuilder();
+            boolean readingMarine = false;
+
+            while ((line = br.readLine()) != null) {
+                line = line.trim();
+
+                if (line.contains("<spacemarine>")) {
+                    readingMarine = true;
+                    currentMarine = new StringBuilder();
+                    currentMarine.append(line).append("\n");
+                }
+                else if (line.contains("</spacemarine>")) {
+                    currentMarine.append(line).append("\n");
+                    readingMarine = false;
+
+                    SpaceMarine marine = parseSpaceMarine(currentMarine.toString());
+                    if (marine != null) {
+
+                        collectionManager.add(marine);
+                    }
+                }
+                else if (readingMarine) {
+                    currentMarine.append(line).append("\n");
+                }
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static SpaceMarine parseSpaceMarine(String marineXml) {
+        try {
+            SpaceMarine marine = new SpaceMarine();
+
+            String idStr = extractValue(marineXml, "id");
+            if (idStr != null) marine.setId((long) Integer.parseInt(idStr));
+
+            String nameStr = extractValue(marineXml, "name");
+            if (nameStr != null) marine.setName(nameStr);
+
+            String xStr = extractValue(marineXml, "x");
+            String yStr = extractValue(marineXml, "y");
+            if (xStr != null && yStr != null) {
+                Coordinates coords = new Coordinates();
+                double x = Double.parseDouble(xStr);
+
+                if (Double.isInfinite(x)) {
+                    System.out.println("Число слишком большое для координаты! Не удалось добавить десантника в коллекцию из файла");
+                    return null;
+                }
+                coords.setX(x);
+                double y = Double.parseDouble(yStr);
+
+                if (Double.isInfinite(y)) {
+                    System.out.println("Число слишком большое для координаты! Не удалось добавить десантника в коллекцию из файла");
+                    return null;
+                }
+                coords.setY((float) y);
+                marine.setCoordinates(coords);
+            }
+
+            String healthStr = extractValue(marineXml, "health");
+            if (healthStr != null) marine.setHealth(Double.parseDouble(healthStr));
+
+            String achievementsStr = extractValue(marineXml, "achievements");
+            if (achievementsStr != null) marine.setAchievements(achievementsStr);
+
+            String categoryStr = extractValue(marineXml, "category");
+            if (categoryStr != null) marine.setCategory(AstartesCategory.valueOf(categoryStr));
+
+            String weaponStr = extractValue(marineXml, "weapon");
+            if (weaponStr != null) marine.setWeapon(weaponStr);
+
+            Chapter chapter = new Chapter();
+            String chapterName = extractValue(marineXml, "name", 1);
+            String marinesCount = extractValue(marineXml, "marinesCount");
+            String world = extractValue(marineXml, "world");
+
+            if (chapterName != null) chapter.setName(chapterName);
+            if (marinesCount != null) chapter.setMarinesCount(Integer.parseInt(marinesCount));
+            if (world != null) chapter.setWorld(world);
+
+            marine.setChapter(chapter);
+
+            return marine;
+
+        } catch (Exception e) {
+            System.out.println("Ошибка при парсинге: " + e.getMessage());
+            return null;
+        }
+    }
+
+    private static String extractValue(String xml, String tagName){
+        return extractValue(xml, tagName, 0);
+    }
+
+    public static String extractValue(String xml, String tagName, int occurrence) {
+        String openTag = "<" + tagName + ">";
+        String closeTag = "</" + tagName + ">";
+
+        int startIndex = 0;
+        for (int i = 0; i <= occurrence; i++) {
+            startIndex = xml.indexOf(openTag, startIndex);
+            if (startIndex == -1) return null;
+            if (i < occurrence) {
+                startIndex += openTag.length();
+            }
+        }
+
+        int endIndex = xml.indexOf(closeTag, startIndex);
+        if (endIndex == -1) return null;
+
+        return xml.substring(startIndex + openTag.length(), endIndex).trim();
     }
 }

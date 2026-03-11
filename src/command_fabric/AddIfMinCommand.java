@@ -19,9 +19,9 @@ public class AddIfMinCommand implements Command {
 
         if (collectionManager.isLessThanMin(marine.getHealth())) {
             collectionManager.add(marine);
-            System.out.println("Marine added successfully!");
+            System.out.println("Десантник добавлен успешно!");
         } else {
-            System.out.println("Your element is not less than least element in current collection!");
+            System.out.println("Ваш элемент не меньше остальных элементов в коллекции!");
         }
     }
 }

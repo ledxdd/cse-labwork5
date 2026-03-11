@@ -14,12 +14,12 @@ public class PrintAchievementsCommand implements Command {
     public void execute(String arg) {
         int index = 1;
         if (collectionManager.isEmpty()) {
-            System.out.println("Collection is empty!");
+            System.out.println("Коллекция пуста!");
         } else {
             for (SpaceMarine marine : collectionManager.getCollection()) {
-                System.out.println("\n🔹 MARINE #" + index++ + " (ID: " + marine.getId() + ")");
-                System.out.println("   ├─ Achievements: " +
-                        (marine.getAchievements() != null ? marine.getAchievements() : "null"));
+                System.out.println("\n Десантник #" + index++ + " (ID: " + marine.getId() + ")");
+                System.out.println("   ├─ Достижения: " +
+                        (marine.getAchievements() != null ? marine.getAchievements() : "никаких..."));
             }
         }
     }
