@@ -7,20 +7,29 @@ import java.io.*;
 import java.util.Scanner;
 
 /**
- * Команда для выполнения скрипта из файла.
- *
+ * Команда для выполнения скрипта из файла
  * <p>Читает файл с командами, игнорирует пустые строки и комментарии (начинающиеся с #),
- * последовательно выполняет каждую команду из файла. Поддерживает вложенное выполнение скриптов. </p>
+ * последовательно выполняет каждую команду из файла. Поддерживает вложенное выполнение скриптов</p>
  */
-
 public class ExecuteCommand implements Command {
 
     private final CollectionManager collectionManager;
 
+    /**
+     * Создает команду выполнения скрипта
+     * @param parentExecutor родительский исполнитель команд (не используется, сохранен для совместимости)
+     * @param marineFactory фабрика для создания десантников (не используется, сохранен для совместимости)
+     * @param collectionManager менеджер коллекции для выполнения команд скрипта
+     */
     public ExecuteCommand(CommandExecutor parentExecutor, MarineFactory marineFactory, CollectionManager collectionManager) {
         this.collectionManager = collectionManager;
     }
 
+    /**
+     * Выполняет скрипт из указанного файла
+     * @param arg путь к файлу со скриптом
+     * @throws IOException если произошла ошибка ввода-вывода при чтении файла
+     */
     @Override
     public void execute(String arg) throws IOException {
         if (arg == null || arg.trim().isEmpty()) {

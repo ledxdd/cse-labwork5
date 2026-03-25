@@ -12,10 +12,25 @@ import java.util.Scanner;
 public class MarineFactory {
     private final Scanner scanner;
 
+    /**
+     * Создает фабрику с указанным источником ввода.
+     *
+     * @param scanner источник ввода для чтения данных
+     * @param collectionManager менеджер коллекции (не используется, сохранен для совместимости)
+     */
+
     public MarineFactory(Scanner scanner, CollectionManager collectionManager) {
         this.scanner = scanner;
     }
 
+    /**
+     * Создает десантника из файла, читая данные построчно.
+     *
+     * @param path путь к файлу (не используется)
+     * @param br буферизованный читатель для чтения данных
+     * @return созданный десантник или {@code null} при ошибке
+     * @throws IOException если произошла ошибка чтения
+     */
     public SpaceMarine createMarineFromFile(String path, BufferedReader br) throws IOException {
         SpaceMarine marine = new SpaceMarine();
         Coordinates crdnts = new Coordinates();
@@ -52,6 +67,23 @@ public class MarineFactory {
         return marine;
     }
 
+    /**
+     * Создает десантника из консольного ввода.
+     *
+     * <p>Запрашивает у пользователя все необходимые поля:
+     * <ul>
+     *   <li>имя (обязательное)</li>
+     *   <li>координаты X и Y</li>
+     *   <li>здоровье (может быть null)</li>
+     *   <li>достижения (может быть null)</li>
+     *   <li>категория (может быть null)</li>
+     *   <li>тип оружия (может быть null)</li>
+     *   <li>глава ордена (обязательная)</li>
+     * </ul>
+     *
+     * @param mode режим создания: "creation" — новый десантник, "update" — обновление
+     * @return созданный десантник
+     */
     public SpaceMarine createMarine(String mode) {
         if ("creation".equals(mode)) {
             System.out.println("*******| Создание нового десантника |*******");
@@ -72,6 +104,11 @@ public class MarineFactory {
         return marine;
     }
 
+    /**
+     * Запрашивает и устанавливает имя десантника.
+     *
+     * @param marine объект для установки имени
+     */
     private void setName(SpaceMarine marine) {
         while (true) {
             System.out.println("Введите имя десантника: ");
@@ -85,6 +122,11 @@ public class MarineFactory {
         }
     }
 
+    /**
+     * Запрашивает и устанавливает координаты десантника.
+     *
+     * @param marine объект для установки координат
+     */
     private void setCoordinates(SpaceMarine marine) {
         Coordinates coordinates = new Coordinates();
 
@@ -122,6 +164,14 @@ public class MarineFactory {
         marine.setCoordinates(coordinates);
     }
 
+    /**
+     * Запрашивает и устанавливает здоровье десантника.
+     *
+     * <p>Пустой ввод устанавливает значение {@code null}.
+     *
+     * @param marine объект для установки здоровья
+     */
+
     private void setHealth(SpaceMarine marine) {
         while (true) {
             System.out.println("Введите здоровье десантника: ");
@@ -145,12 +195,26 @@ public class MarineFactory {
         }
     }
 
+    /**
+     * Запрашивает и устанавливает достижения десантника.
+     *
+     * <p>Пустой ввод устанавливает значение {@code null}.
+     *
+     * @param marine объект для установки достижений
+     */
     private void setAchievements(SpaceMarine marine) {
         System.out.println("Введите достижения десантника: ");
         String achieves = scanner.nextLine().trim();
         marine.setAchievments(achieves.isEmpty() ? null : achieves);
     }
 
+    /**
+     * Запрашивает и устанавливает категорию десантника.
+     *
+     * <p>Пустой ввод устанавливает значение {@code null}.
+     *
+     * @param marine объект для установки категории
+     */
     private void setCategory(SpaceMarine marine) {
         while (true) {
             System.out.println("Введите категорию десантника: ");
@@ -173,6 +237,13 @@ public class MarineFactory {
         }
     }
 
+    /**
+     * Запрашивает и устанавливает тип оружия десантника.
+     *
+     * <p>Пустой ввод устанавливает значение {@code null}.
+     *
+     * @param marine объект для установки типа оружия
+     */
     private void setWeapon(SpaceMarine marine) {
         while (true) {
             System.out.println("Введите оружие десантника: ");
@@ -195,6 +266,13 @@ public class MarineFactory {
         }
     }
 
+    /**
+     * Запрашивает и устанавливает главу ордена десантника.
+     *
+     * <p>Запрашивает название главы, количество десантников (1-1000) и мир.
+     *
+     * @param marine объект для установки главы
+     */
     private void setChapter(SpaceMarine marine) {
         String name;
         while (true) {
@@ -223,6 +301,15 @@ public class MarineFactory {
         marine.setChapter(new Chapter(name, count, world.isEmpty() ? null : world));
     }
 
+    /**
+     * Загружает коллекцию десантников из XML-файла.
+     *
+     * <p>Читает XML-файл, парсит каждый элемент {@code <spacemarine>}
+     * и добавляет десантников в коллекцию.
+     *
+     * @param filePath путь к XML-файлу
+     * @param collectionManager менеджер коллекции для добавления десантников
+     */
     public static void loadDataFromXML(String filePath, CollectionManager collectionManager) {
         File file = new File(filePath);
 
@@ -263,6 +350,12 @@ public class MarineFactory {
         }
     }
 
+    /**
+     * Парсит XML-строку и создает объект {@link SpaceMarine}.
+     *
+     * @param marineXml XML-строка с данными десантника
+     * @return созданный десантник или {@code null} при ошибке
+     */
     public static SpaceMarine parseSpaceMarine(String marineXml) {
         try {
             SpaceMarine marine = new SpaceMarine();
@@ -325,10 +418,25 @@ public class MarineFactory {
         }
     }
 
+    /**
+     * Извлекает значение тега из XML-строки (первое вхождение).
+     *
+     * @param xml XML-строка
+     * @param tagName имя тега
+     * @return значение тега или {@code null} если тег не найден
+     */
     private static String extractValue(String xml, String tagName){
         return extractValue(xml, tagName, 0);
     }
 
+    /**
+     * Извлекает значение тега из XML-строки по номеру вхождения.
+     *
+     * @param xml XML-строка
+     * @param tagName имя тега
+     * @param occurrence номер вхождения (0 — первое)
+     * @return значение тега или {@code null} если тег не найден
+     */
     public static String extractValue(String xml, String tagName, int occurrence) {
         String openTag = "<" + tagName + ">";
         String closeTag = "</" + tagName + ">";

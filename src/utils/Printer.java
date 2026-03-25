@@ -13,6 +13,9 @@ public class Printer {
         this.collectionManager = collectionManager;
     }
 
+    /**
+     * Вывод помощи (списка всех команд)
+     */
     public void printHelp() {
         System.out.println("info : вывести информацию о коллекции");
         System.out.println("show : вывести все элементы коллекции");
@@ -31,6 +34,9 @@ public class Printer {
         System.out.println("print_field_ascending_achievements : значения achievements по возрастанию");
     }
 
+    /**
+     * Вывод информации о коллекции
+     */
     public void printInfo() {
         System.out.println("\n" + "=".repeat(50));
         System.out.println("Информация о коллекции:");
@@ -41,6 +47,9 @@ public class Printer {
         System.out.println("=".repeat(50));
     }
 
+    /**
+     * Вывести всю коллекцию
+     */
     public void printCollection() {
         if (collectionManager.isEmpty()) {
             System.out.println("Коллекция пуста!");
@@ -58,6 +67,11 @@ public class Printer {
         System.out.println("\n" + "=".repeat(100));
     }
 
+    /**
+     * Вывести определенного десантника по индексу
+     * @param m
+     * @param index
+     */
     private void printMarine(SpaceMarine m, int index) {
         System.out.println("\nMARINE. num. :" + index + " (ID: " + m.getId() + ")");
         System.out.println("   ├─ Name: " + m.getName());

@@ -8,12 +8,10 @@ import java.io.IOException;
 import java.util.Scanner;
 
 /**
- * Исполнитель команд, управляющий регистрацией и выполнением всех доступных команд.
- *
- * <p>Содержит реестр команд, фабрику для создания десантников и менеджер коллекции.
- * Отвечает за инициализацию команд, их регистрацию и маршрутизацию входящих запросов. </p>
+ * Исполнитель команд, управляющий регистрацией и выполнением всех доступных команд
+ * <p>Содержит реестр команд, фабрику для создания десантников и менеджер коллекции
+ * Отвечает за инициализацию команд, их регистрацию и маршрутизацию входящих запросов</p>
  */
-
 public class CommandExecutor {
     private final CollectionManager collectionManager;
     private final MarineFactory marineFactory;
@@ -21,6 +19,12 @@ public class CommandExecutor {
     private final CommandReg registry;
     private boolean isRunning = true;
 
+    /**
+     * Создает исполнитель команд с необходимыми зависимостями
+     * @param collectionManager менеджер коллекции для работы с данными
+     * @param scanner источник ввода для создания объектов
+     * @throws IOException если произошла ошибка при регистрации команд
+     */
     public CommandExecutor(CollectionManager collectionManager, Scanner scanner) throws IOException {
         this.collectionManager = collectionManager;
         this.marineFactory = new MarineFactory(scanner, collectionManager);
@@ -29,6 +33,10 @@ public class CommandExecutor {
         registerCommands();
     }
 
+    /**
+     * Регистрирует все доступные команды в реестре
+     * @throws IOException если при регистрации команд произошла ошибка ввода-вывода
+     */
     private void registerCommands() throws IOException {
         registry.register("help", new HelpCommand(registry, printer));
         registry.register("info", new InfoCommand(collectionManager, printer));
@@ -48,10 +56,18 @@ public class CommandExecutor {
         registry.register("save", new SaveCommand(marineFactory, collectionManager));
     }
 
+    /**
+     * Возвращает статус работы исполнителя команд
+     * @return true если исполнитель активен, false после выполнения команды exit
+     */
     public boolean isRunning() {
         return isRunning;
     }
 
+    /**
+     * Выполняет команду по ее названию и аргументам
+     * @param input строка ввода, содержащая имя команды и опциональный аргумент
+     */
     public void execute(String input) {
         String[] parts = input.split(" ", 2);
         String commandName = parts[0];
