@@ -5,6 +5,10 @@ import cse_labwork5.src.models.*;
 import java.io.*;
 import java.util.Scanner;
 
+/**
+ * Фабрика для создания объектов
+ * <p> Предоставляет методы для создания объектов коллекции, а также для загрузки данных из файлов .xml </p>
+ */
 public class MarineFactory {
     private final Scanner scanner;
 

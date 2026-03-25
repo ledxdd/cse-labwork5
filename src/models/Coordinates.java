@@ -1,5 +1,11 @@
 package cse_labwork5.src.models;
 
+/**
+ * Координаты местоположения космического десантника
+ *
+ * <p>Содержит координаты X и Y в двумерном пространстве </p>
+ */
+
 public class Coordinates {
     private Double x; //Поле не может быть null
     private float y;

@@ -6,7 +6,7 @@ import cse_labwork5.src.services.CollectionManager;
  * Команда для удаления десантника по идентификатору.
  *
  * <p>Удаляет элемент коллекции с указанным ID. Если элемент не найден,
- * выводит соответствующее сообщение.
+ * выводит соответствующее сообщение. </p>
  */
 
 public class RemoveByIdCommand implements Command {

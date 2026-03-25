@@ -2,6 +2,13 @@ package cse_labwork5.src.models;
 
 import java.time.ZonedDateTime;
 
+/**
+ * Космический десантник (Space Marine) — основной боевой юнит.
+ *
+ * <p>Содержит полную информацию о десантнике:  имя, координаты,
+ * здоровье, достижения, категорию, вооружение и данные о главе </p>
+ *
+ */
 
 public class SpaceMarine implements Comparable<SpaceMarine> {
     private Long id; //Поле не может быть null, Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически !
@@ -15,7 +22,6 @@ public class SpaceMarine implements Comparable<SpaceMarine> {
     private Chapter chapter; //Поле не может быть null
 
     static private long next_id = 1L;
-
     // SETTERS
 
     public void setNextId(long id) {

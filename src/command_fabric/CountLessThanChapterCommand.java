@@ -8,7 +8,7 @@ import java.util.Scanner;
  *
  * <p>Подсчитывает элементы коллекции, у которых значение поля chapter.marinesCount
  * меньше заданного значения. Значение может быть передано как аргумент команды
- * или введено интерактивно.
+ * или введено интерактивно. </p>
  */
 
 public class CountLessThanChapterCommand implements Command {

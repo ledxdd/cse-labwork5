@@ -3,6 +3,9 @@ package cse_labwork5.src.utils;
 import cse_labwork5.src.models.SpaceMarine;
 import cse_labwork5.src.services.CollectionManager;
 
+/**
+ * Класс для отображения информации в терминал
+ */
 public class Printer {
     private final CollectionManager collectionManager;
 

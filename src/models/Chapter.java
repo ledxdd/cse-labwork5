@@ -1,5 +1,14 @@
 package cse_labwork5.src.models;
 
+
+/**
+ * Представляет главу ордена космических десантников.
+ *
+ * <p>Содержит информацию о названии главы, количестве десантников
+ * и мире</p>
+ */
+
+
 public class Chapter {
     private String name;
     private int marinesCount;

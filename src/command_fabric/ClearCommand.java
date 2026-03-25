@@ -6,7 +6,7 @@ import cse_labwork5.src.services.CollectionManager;
  * Команда для очистки коллекции.
  *
  * <p>Удаляет все элементы из коллекции. Перед очисткой проверяет,
- * содержит ли коллекция какие-либо элементы.
+ * содержит ли коллекция какие-либо элементы. </p>
  */
 
 public class ClearCommand implements Command {

@@ -4,6 +4,12 @@ import cse_labwork5.src.models.SpaceMarine;
 import java.time.LocalDateTime;
 import java.util.TreeSet;
 
+/**
+ * Управляет коллекцией десантников
+ *
+ * <p> Обеспечивает основные команды для управления коллекцией, такие как: добавление нового десантника, удаление, очистка коллекции
+ * получение данных о коллекции, изменение состояние коллекции</p>
+ */
 public class CollectionManager {
     private final TreeSet<SpaceMarine> collection;
     private final LocalDateTime initDate;
