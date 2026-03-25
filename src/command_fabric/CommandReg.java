@@ -3,6 +3,13 @@ package cse_labwork5.src.command_fabric;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Реестр команд для хранения и доступа к зарегистрированным командам.
+ *
+ * <p>Предоставляет функциональность для регистрации команд по имени,
+ * их получения и проверки существования.
+ */
+
 public class CommandReg {
     private final Map<String, Command> commands = new HashMap<>();
 

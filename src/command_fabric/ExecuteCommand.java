@@ -6,6 +6,13 @@ import cse_labwork5.src.services.MarineFactory;
 import java.io.*;
 import java.util.Scanner;
 
+/**
+ * Команда для выполнения скрипта из файла.
+ *
+ * <p>Читает файл с командами, игнорирует пустые строки и комментарии (начинающиеся с #),
+ * последовательно выполняет каждую команду из файла. Поддерживает вложенное выполнение скриптов.
+ */
+
 public class ExecuteCommand implements Command {
 
     private final CollectionManager collectionManager;

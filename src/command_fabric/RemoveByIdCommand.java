@@ -2,6 +2,13 @@ package cse_labwork5.src.command_fabric;
 
 import cse_labwork5.src.services.CollectionManager;
 
+/**
+ * Команда для удаления десантника по идентификатору.
+ *
+ * <p>Удаляет элемент коллекции с указанным ID. Если элемент не найден,
+ * выводит соответствующее сообщение.
+ */
+
 public class RemoveByIdCommand implements Command {
     private final CollectionManager collectionManager;
 

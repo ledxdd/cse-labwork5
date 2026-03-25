@@ -8,6 +8,14 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 
+/**
+ * Команда для сохранения коллекции в XML файл.
+ *
+ * <p>Сохраняет текущее состояние коллекции в файл {@code data/data.xml}
+ * в формате XML. Каждый десантник сериализуется со всеми своими полями,
+ * включая вложенные объекты (координаты, главу).
+ */
+
 public class SaveCommand implements Command {
     CollectionManager collectionManager;
     public SaveCommand(MarineFactory marineFactory, CollectionManager collectionManager) throws IOException {

@@ -3,6 +3,13 @@ package cse_labwork5.src.command_fabric;
 import cse_labwork5.src.services.CollectionManager;
 import cse_labwork5.src.utils.Printer;
 
+/**
+ * Команда для вывода информации о коллекции.
+ *
+ * <p>Отображает сведения о типе коллекции, дате инициализации,
+ * количестве элементов и другой служебной информации.
+ */
+
 public class InfoCommand implements Command {
     private final Printer printer;
 

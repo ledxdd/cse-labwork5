@@ -2,6 +2,13 @@ package cse_labwork5.src.command_fabric;
 
 import cse_labwork5.src.services.CollectionManager;
 
+/**
+ * Команда для очистки коллекции.
+ *
+ * <p>Удаляет все элементы из коллекции. Перед очисткой проверяет,
+ * содержит ли коллекция какие-либо элементы.
+ */
+
 public class ClearCommand implements Command {
     private final CollectionManager collectionManager;
 

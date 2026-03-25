@@ -3,6 +3,13 @@ package cse_labwork5.src.command_fabric;
 import cse_labwork5.src.models.SpaceMarine;
 import cse_labwork5.src.services.CollectionManager;
 
+/**
+ * Команда для вывода достижений всех десантников в порядке возрастания.
+ *
+ * <p>Перебирает коллекцию и отображает достижения каждого десантника
+ * с указанием порядкового номера и идентификатора.
+ */
+
 public class PrintAchievementsCommand implements Command {
     private final CollectionManager collectionManager;
 

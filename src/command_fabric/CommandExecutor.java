@@ -7,6 +7,13 @@ import cse_labwork5.src.utils.Printer;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * Исполнитель команд, управляющий регистрацией и выполнением всех доступных команд.
+ *
+ * <p>Содержит реестр команд, фабрику для создания десантников и менеджер коллекции.
+ * Отвечает за инициализацию команд, их регистрацию и маршрутизацию входящих запросов.
+ */
+
 public class CommandExecutor {
     private final CollectionManager collectionManager;
     private final MarineFactory marineFactory;

@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"cse_labwork5.src"},{"l":"cse_labwork5.src.command_fabric"},{"l":"cse_labwork5.src.models"},{"l":"cse_labwork5.src.services"},{"l":"cse_labwork5.src.utils"}];updateSearchResults();

@@ -4,6 +4,14 @@ import cse_labwork5.src.models.SpaceMarine;
 import cse_labwork5.src.services.CollectionManager;
 import cse_labwork5.src.services.MarineFactory;
 
+/**
+ * Команда для добавления десантника в коллекцию, если его здоровье меньше минимального.
+ *
+ * <p>Создает нового десантника и сравнивает его здоровье с минимальным
+ * значением в коллекции. Добавление происходит только если новый десантник
+ * имеет меньшее значение здоровья.
+ */
+
 public class AddIfMinCommand implements Command {
     private final MarineFactory marineFactory;
     private final CollectionManager collectionManager;

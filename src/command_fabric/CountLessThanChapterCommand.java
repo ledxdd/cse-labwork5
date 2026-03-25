@@ -3,6 +3,14 @@ package cse_labwork5.src.command_fabric;
 import cse_labwork5.src.services.CollectionManager;
 import java.util.Scanner;
 
+/**
+ * Команда для подсчета количества десантников, чья глава содержит меньше указанного числа бойцов.
+ *
+ * <p>Подсчитывает элементы коллекции, у которых значение поля chapter.marinesCount
+ * меньше заданного значения. Значение может быть передано как аргумент команды
+ * или введено интерактивно.
+ */
+
 public class CountLessThanChapterCommand implements Command {
     private final CollectionManager collectionManager;
     private final Scanner scanner = new Scanner(System.in);
