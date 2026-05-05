@@ -1,5 +1,5 @@
 cse_labwork5.src
-cse_labwork5.src.command_fabric
-cse_labwork5.src.models
-cse_labwork5.src.services
-cse_labwork5.src.utils
+cse_labwork5.src.common.services.command_fabric
+cse_labwork5.src.common.models
+cse_labwork5.src.common.services
+cse_labwork5.src.common.services.utils

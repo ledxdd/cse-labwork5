@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="dc.created" content="2026-03-25">
-<meta name="description" content="declaration: package: cse_labwork5.src.command_fabric, class: AddIfMaxCommand">
+<meta name="description" content="declaration: package: cse_labwork5.src.common.services.command_fabric, class: AddIfMaxCommand">
 <meta name="generator" content="javadoc/ClassWriterImpl">
 <link rel="stylesheet" type="text/css" href="../../../stylesheet.css" title="Style">
 <link rel="stylesheet" type="text/css" href="../../../script-dir/jquery-ui.min.css" title="Style">
@@ -82,21 +82,21 @@ loadScripts(document, 'script');</script>
 <main role="main">
 <!-- ======== START OF CLASS DATA ======== -->
 <div class="header">
-<div class="sub-title"><span class="package-label-in-type">Package</span>&nbsp;<a href="package-summary.html">cse_labwork5.src.command_fabric</a></div>
+<div class="sub-title"><span class="package-label-in-type">Package</span>&nbsp;<a href="package-summary.html">cse_labwork5.src.common.services.command_fabric</a></div>
 <h1 title="Class AddIfMaxCommand" class="title">Class AddIfMaxCommand</h1>
 </div>
 <div class="inheritance" title="Inheritance Tree"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">java.lang.Object</a>
-<div class="inheritance">cse_labwork5.src.command_fabric.AddIfMaxCommand</div>
+<div class="inheritance">cse_labwork5.src.common.services.command_fabric.AddIfMaxCommand</div>
 </div>
 <section class="class-description" id="class-description">
 <dl class="notes">
 <dt>All Implemented Interfaces:</dt>
-<dd><code><a href="Command.html" title="interface in cse_labwork5.src.command_fabric">Command</a></code></dd>
+<dd><code><a href="Command.html" title="interface in cse_labwork5.src.common.services.command_fabric">Command</a></code></dd>
 </dl>
 <hr>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">AddIfMaxCommand</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>
-implements <a href="Command.html" title="interface in cse_labwork5.src.command_fabric">Command</a></span></div>
+implements <a href="Command.html" title="interface in cse_labwork5.src.common.services.command_fabric">Command</a></span></div>
 <div class="block">Команда для добавления десантника в коллекцию, если его здоровье превышает максимальное
  <p>Создает нового десантника и сравнивает его здоровье с максимальным
  значением в коллекции. Добавление происходит только если новый десантник
@@ -112,8 +112,8 @@ implements <a href="Command.html" title="interface in cse_labwork5.src.command_f
 <div class="summary-table two-column-summary">
 <div class="table-header col-first">Constructor</div>
 <div class="table-header col-last">Description</div>
-<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(cse_labwork5.src.services.MarineFactory,cse_labwork5.src.services.CollectionManager)" class="member-name-link">AddIfMaxCommand</a><wbr>(<a href="../services/MarineFactory.html" title="class in cse_labwork5.src.services">MarineFactory</a>&nbsp;marineFactory,
- <a href="../services/CollectionManager.html" title="class in cse_labwork5.src.services">CollectionManager</a>&nbsp;collectionManager)</code></div>
+<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(cse_labwork5.src.services.MarineFactory,cse_labwork5.src.services.CollectionManager)" class="member-name-link">AddIfMaxCommand</a><wbr>(<a href="../services/MarineFactory.html" title="class in cse_labwork5.src.common.services">MarineFactory</a>&nbsp;marineFactory,
+ <a href="../services/CollectionManager.html" title="class in cse_labwork5.src.common.services">CollectionManager</a>&nbsp;collectionManager)</code></div>
 <div class="col-last even-row-color">
 <div class="block">Создает команду добавления десантника с проверкой максимального значения</div>
 </div>
@@ -156,8 +156,8 @@ implements <a href="Command.html" title="interface in cse_labwork5.src.command_f
 <li>
 <section class="detail" id="&lt;init&gt;(cse_labwork5.src.services.MarineFactory,cse_labwork5.src.services.CollectionManager)">
 <h3>AddIfMaxCommand</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">AddIfMaxCommand</span><wbr><span class="parameters">(<a href="../services/MarineFactory.html" title="class in cse_labwork5.src.services">MarineFactory</a>&nbsp;marineFactory,
- <a href="../services/CollectionManager.html" title="class in cse_labwork5.src.services">CollectionManager</a>&nbsp;collectionManager)</span></div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">AddIfMaxCommand</span><wbr><span class="parameters">(<a href="../services/MarineFactory.html" title="class in cse_labwork5.src.common.services">MarineFactory</a>&nbsp;marineFactory,
+ <a href="../services/CollectionManager.html" title="class in cse_labwork5.src.common.services">CollectionManager</a>&nbsp;collectionManager)</span></div>
 <div class="block">Создает команду добавления десантника с проверкой максимального значения</div>
 <dl class="notes">
 <dt>Parameters:</dt>
@@ -181,7 +181,7 @@ implements <a href="Command.html" title="interface in cse_labwork5.src.command_f
 <div class="block">Выполняет добавление десантника при условии превышения максимального здоровья</div>
 <dl class="notes">
 <dt>Specified by:</dt>
-<dd><code><a href="Command.html#execute(java.lang.String)">execute</a></code>&nbsp;in interface&nbsp;<code><a href="Command.html" title="interface in cse_labwork5.src.command_fabric">Command</a></code></dd>
+<dd><code><a href="Command.html#execute(java.lang.String)">execute</a></code>&nbsp;in interface&nbsp;<code><a href="Command.html" title="interface in cse_labwork5.src.common.services.command_fabric">Command</a></code></dd>
 <dt>Parameters:</dt>
 <dd><code>arg</code> - аргумент команды (не используется)</dd>
 </dl>

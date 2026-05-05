@@ -62,7 +62,7 @@ cse-labwork5/
 
 ```bash
 # Запуск программы
-> java cse_labwork5.src.Main data/marines.xml
+> java cse_labwork5.src.Client data/marines.xml
 Enter 'help' to see available commands:
 
 > help
@@ -104,10 +104,10 @@ git clone <url-репозитория>
 cd cse-labwork5
 
 # 2. Скомпилировать проект
-javac cse_labwork5/src/Main.java
+javac cse_labwork5/src/Client.java
 
 # 3. Запустить с указанием файла данных
-java cse_labwork5.src.Main data/marines.xml
+java cse_labwork5.src.Client data/marines.xml
 ```
 
 ## 📝 Пример XML файла
