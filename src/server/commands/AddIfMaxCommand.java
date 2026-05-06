@@ -1,9 +1,10 @@
-package cse_labwork5.src.server.commands;
+package server.commands;
 
-import cse_labwork5.src.common.models.SpaceMarine;
-import cse_labwork5.src.common.services.CollectionManager;
-import cse_labwork5.src.common.services.MarineFactory;
-import cse_labwork5.src.common.services.command_fabric.Command;
+import common.models.SpaceMarine;
+import common.services.CollectionManager;
+import common.services.command_fabric.Command;
+
+import java.time.ZonedDateTime;
 
 /**
  * Команда для добавления десантника в коллекцию, если его здоровье превышает максимальное
@@ -16,7 +17,6 @@ public class AddIfMaxCommand implements Command {
 
     /**
      * Создает команду добавления десантника с проверкой максимального значения
-     * @param marineFactory фабрика для создания объектов SpaceMarine
      * @param collectionManager менеджер коллекции для хранения и сравнения десантников
      */
     public AddIfMaxCommand(CollectionManager collectionManager) {
@@ -35,6 +35,8 @@ public class AddIfMaxCommand implements Command {
         SpaceMarine marine = (SpaceMarine) arg;
 
         if (collectionManager.isGreaterThanMax(marine.getHealth())) {
+            marine.setId(SpaceMarine.generateNextId());
+            marine.setCreationDate(ZonedDateTime.now());
             collectionManager.add(marine);
             return "Десантник добавлен успешно!";
         } else {

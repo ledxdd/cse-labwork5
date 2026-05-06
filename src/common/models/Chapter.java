@@ -1,4 +1,4 @@
-package cse_labwork5.src.common.models;
+package common.models;
 
 
 import java.io.Serializable;
@@ -54,5 +54,14 @@ public class Chapter implements Serializable, Comparable<Chapter> {
     @Override
     public int compareTo(Chapter o) {
         return Long.compare(this.marinesCount, o.getMarinesCnt());
+    }
+
+    @Override
+    public String toString() {
+        return "Chapter{" +
+                "name='" + name + '\'' +
+                ", marinesCount=" + marinesCount +
+                ", world='" + world + '\'' +
+                '}';
     }
 }

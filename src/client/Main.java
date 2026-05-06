@@ -1,17 +1,22 @@
-package cse_labwork5.src.client;
+package client;
 
-import cse_labwork5.src.client.commands.CommandExecutor;
-import cse_labwork5.src.client.network.TCPClient;
-import cse_labwork5.src.common.Request;
-import cse_labwork5.src.common.Response;
-import cse_labwork5.src.common.services.CollectionManager;
-import cse_labwork5.src.common.services.MarineFactory;
+import client.commands.CommandExecutor;
+import client.network.TCPClient;
+import common.Request;
+import common.Response;
+import common.services.MarineFactory;
 
 import java.util.Scanner;
 
+/**
+ * Основной класс клиента
+ *
+ * <p>Осуществляет </p>
+ */
+
 public class Main {
     public static void main(String[] args) {
-        TCPClient client = new TCPClient("localhost", 12345);
+        TCPClient client = new TCPClient("localhost", 58110);
         Scanner scanner = new Scanner(System.in);
 
         MarineFactory marineFactory = new MarineFactory(scanner);
@@ -44,8 +49,13 @@ public class Main {
                 if (request != null) {
                     Response response = client.sendAndRecieve(request);
                     System.out.println(response.getMessage());
-                } else {
-                    System.out.println("Команда не найдена в регистре.");
+                    if (response.getCollection() != null) {
+                        if (response.getCollection().isEmpty()) {
+                            System.out.println("Коллекция пуста.");
+                        } else {
+                            response.getCollection().forEach(System.out::println);
+                        }
+                    }
                 }
 
             } catch (Exception e) {

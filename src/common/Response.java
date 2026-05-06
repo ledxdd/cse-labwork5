@@ -1,6 +1,6 @@
-package cse_labwork5.src.common;
+package common;
 
-import cse_labwork5.src.common.models.SpaceMarine;
+import common.models.SpaceMarine;
 
 import java.io.Serializable;
 import java.util.Collection;

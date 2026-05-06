@@ -1,7 +1,7 @@
-package cse_labwork5.src.client.commands;
+package client.commands;
 
-import cse_labwork5.src.common.services.MarineFactory;
-import cse_labwork5.src.common.services.command_fabric.Command;
+import common.services.MarineFactory;
+import common.services.command_fabric.Command;
 
 import java.io.Serializable;
 

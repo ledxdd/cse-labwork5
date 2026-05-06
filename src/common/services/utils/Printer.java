@@ -1,7 +1,7 @@
-package cse_labwork5.src.common.services.utils;
+package common.services.utils;
 
-import cse_labwork5.src.common.models.SpaceMarine;
-import cse_labwork5.src.common.services.CollectionManager;
+import common.models.SpaceMarine;
+import common.services.CollectionManager;
 
 import java.util.stream.Collectors;
 

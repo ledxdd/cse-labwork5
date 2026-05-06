@@ -1,8 +1,10 @@
-package cse_labwork5.src.server.network;
+package server.network;
 
-import cse_labwork5.src.common.Request;
-import cse_labwork5.src.common.Response;
-import cse_labwork5.src.server.commands.CommandExecutor;
+import common.Request;
+import common.Response;
+import server.commands.RequestHandler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.net.InetSocketAddress;
@@ -11,15 +13,17 @@ import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
 import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
+import java.nio.charset.StandardCharsets;
 import java.util.Iterator;
 
 public class TCPServer {
+    private static final Logger logger = LoggerFactory.getLogger(TCPServer.class);
     private final int PORT;
-    private final CommandExecutor commandExecutor;
+    private final RequestHandler requestHandler;
     private Selector selector;
 
-    public TCPServer(int port, CommandExecutor commandExecutor) {
-        this.commandExecutor = commandExecutor;
+    public TCPServer(int port, RequestHandler requestHandler) {
+        this.requestHandler = requestHandler;
         this.PORT = port;
     }
 
@@ -27,16 +31,19 @@ public class TCPServer {
         try {
             selector = Selector.open();
             ServerSocketChannel serverChannel = ServerSocketChannel.open();
+            BufferedReader consoleReader = new BufferedReader(new InputStreamReader(System.in));
 
             serverChannel.configureBlocking(false);
             serverChannel.bind(new InetSocketAddress(PORT));
 
             serverChannel.register(selector, SelectionKey.OP_ACCEPT);
 
-            System.out.println("Сервер запущен на порту: " + PORT);
+            logger.info("Сервер запущен на порту {}", PORT);
 
             while (true) {
-                if (selector.select() == 0) {
+                handleServerConsole(consoleReader);
+
+                if (selector.select(200) == 0) {
                     continue;
                 }
 
@@ -66,44 +73,62 @@ public class TCPServer {
     private void acceptConnection(SelectionKey key) throws IOException {
         ServerSocketChannel ssc = (ServerSocketChannel) key.channel();
         SocketChannel clientChannel = ssc.accept();
+
+        if (clientChannel == null) {
+            return;
+        }
+
         clientChannel.configureBlocking(false);
-        clientChannel.register(selector, SelectionKey.OP_READ);
-        System.out.println("Клиент подключен: " + clientChannel.getRemoteAddress());
+        clientChannel.register(selector, SelectionKey.OP_READ, new ClientContext());
+        logger.info("Получено новое подключение: {}", clientChannel.getRemoteAddress());
     }
 
     private void readRequest(SelectionKey key) {
-        try (SocketChannel clientChannel = (SocketChannel) key.channel()) {
-            try {
-                ByteBuffer sizeBuffer = ByteBuffer.allocate(4);
-                int read = clientChannel.read(sizeBuffer);
-                if (read < 4) return;
+        SocketChannel clientChannel = (SocketChannel) key.channel();
+        ClientContext context = (ClientContext) key.attachment();
 
-                sizeBuffer.flip();
-                int objectSize = sizeBuffer.getInt();
-
-                ByteBuffer objectBuffer = ByteBuffer.allocate(objectSize);
-                int totalRead = 0;
-                while (totalRead < objectSize) {
-                    int currentRead = clientChannel.read(objectBuffer);
-                    if (currentRead == -1) break;
-                    totalRead += currentRead;
+        try {
+            if (context.payloadBuffer == null) {
+                int read = clientChannel.read(context.sizeBuffer);
+                if (read == -1) {
+                    closeClient(key, clientChannel);
+                    return;
                 }
 
-                objectBuffer.flip();
-                byte[] data = new byte[objectBuffer.remaining()];
-                objectBuffer.get(data);
-
-                try (ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(data))) {
-                    Request request = (Request) ois.readObject();
-                    Response response = commandExecutor.handleRequest(request);
-                    sendResponse(clientChannel, response);
+                if (context.sizeBuffer.hasRemaining()) {
+                    return;
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
+
+                context.sizeBuffer.flip();
+                int objectSize = context.sizeBuffer.getInt();
+                context.payloadBuffer = ByteBuffer.allocate(objectSize);
             }
-        } catch (IOException ignored) {
-        } finally {
-            key.cancel();
+
+            int readPayload = clientChannel.read(context.payloadBuffer);
+            if (readPayload == -1) {
+                closeClient(key, clientChannel);
+                return;
+            }
+            if (context.payloadBuffer.hasRemaining()) {
+                return;
+            }
+
+            context.payloadBuffer.flip();
+            byte[] data = new byte[context.payloadBuffer.remaining()];
+            context.payloadBuffer.get(data);
+
+            try (ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(data))) {
+                Request request = (Request) ois.readObject();
+                logger.info("Получен запрос '{}' от клиента {}", request.getCommandName(), clientChannel.getRemoteAddress());
+                Response response = requestHandler.handleRequest(request);
+                sendResponse(clientChannel, response);
+            } finally {
+                closeClient(key, clientChannel);
+            }
+
+        } catch (Exception e) {
+            logger.error("Ошибка при чтении/обработке запроса", e);
+            closeClient(key, clientChannel);
         }
     }
 
@@ -113,10 +138,47 @@ public class TCPServer {
         oos.writeObject(response);
         oos.flush();
 
-        ByteBuffer responseBuffer = ByteBuffer.wrap(baos.toByteArray());
+        byte[] payload = baos.toByteArray();
+        ByteBuffer responseBuffer = ByteBuffer.allocate(4 + payload.length);
+        responseBuffer.putInt(payload.length);
+        responseBuffer.put(payload);
+        responseBuffer.flip();
 
         while (responseBuffer.hasRemaining()) {
             clientChannel.write(responseBuffer);
         }
+
+        logger.info("Ответ отправлен клиенту {}", clientChannel.getRemoteAddress());
+    }
+
+    private void closeClient(SelectionKey key, SocketChannel clientChannel) {
+        try {
+            key.cancel();
+            clientChannel.close();
+        } catch (IOException ignored) {
+            logger.warn("Не удалось закрыть клиентское соединение корректно");
+        }
+    }
+
+    private void handleServerConsole(BufferedReader consoleReader) throws IOException {
+        if (!consoleReader.ready()) {
+            return;
+        }
+
+        String command = consoleReader.readLine();
+
+        if (command == null) {
+            return;
+        }
+
+        if ("save".equalsIgnoreCase(command.trim())) {
+            Response response = requestHandler.handleRequest(new Request("__server_save__", null));
+            logger.info("Выполнена серверная команда save: {}", response.getMessage());
+        }
+    }
+
+    private static class ClientContext {
+        private final ByteBuffer sizeBuffer = ByteBuffer.allocate(4);
+        private ByteBuffer payloadBuffer;
     }
 }

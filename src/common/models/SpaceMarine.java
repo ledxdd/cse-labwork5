@@ -1,4 +1,4 @@
-package cse_labwork5.src.common.models;
+package common.models;
 
 import java.io.Serializable;
 import java.time.ZonedDateTime;
@@ -25,8 +25,12 @@ public class SpaceMarine implements Serializable, Comparable<SpaceMarine> {
     static private long next_id = 1L;
     // SETTERS
 
-    public void setNextId(long id) {
+    public static void setNextId(long id) {
         next_id = id;
+    }
+
+    public static synchronized long generateNextId() {
+        return next_id++;
     }
 
     public boolean setName(String name) {
@@ -144,20 +148,18 @@ public class SpaceMarine implements Serializable, Comparable<SpaceMarine> {
     // CONSTRUCTORS
 
     public SpaceMarine() {
-        this.id = next_id++;
+        this.id = generateNextId();
     }
 
     public SpaceMarine(String flag) {
-        if ("update".equals(flag)) {
-
-        } else {
-            this.id = next_id++;
+        if (!"update".equals(flag)) {
+            this.id = generateNextId();
         }
 
     }
 
     public SpaceMarine(String name, Coordinates crdnt, double health, String achievements, AstartesCategory category, Weapon weapon, Chapter chapter) {
-        this.id = next_id++;
+        this.id = generateNextId();
         setName(name);
         this.coordinates = crdnt;
         this.creationDate = java.time.ZonedDateTime.now();

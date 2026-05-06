@@ -1,8 +1,8 @@
-package cse_labwork5.src.server.commands;
+package server.commands;
 
-import cse_labwork5.src.common.models.Chapter;
-import cse_labwork5.src.common.services.CollectionManager;
-import cse_labwork5.src.common.services.command_fabric.Command;
+import common.models.Chapter;
+import common.services.CollectionManager;
+import common.services.command_fabric.Command;
 
 public class CountLessThanChapterCommand implements Command {
     CollectionManager collectionManager;

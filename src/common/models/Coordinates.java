@@ -1,4 +1,4 @@
-package cse_labwork5.src.common.models;
+package common.models;
 
 import java.io.Serializable;
 
@@ -49,4 +49,12 @@ public class Coordinates implements Serializable {
     }
 
     // END OF CONSTRUCTORS
+
+    @Override
+    public String toString() {
+        return "Coordinates{" +
+                "x=" + x +
+                ", y=" + y +
+                '}';
+    }
 }

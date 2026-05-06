@@ -1,8 +1,8 @@
-package cse_labwork5.src.client.commands;
+package client.commands;
 
-import cse_labwork5.src.common.Request;
-import cse_labwork5.src.common.services.MarineFactory;
-import cse_labwork5.src.common.services.command_fabric.CommandReg;
+import common.Request;
+import common.services.MarineFactory;
+import common.services.command_fabric.CommandReg;
 
 import java.io.Serializable;
 
@@ -18,26 +18,33 @@ public class CommandExecutor {
 
     private void registerClientCommands() {
         registry.register("add", new AddCommand(marineFactory));
-        registry.register("addIfMax", new AddIfMaxCommand(marineFactory));
-        registry.register("addIfMin", new AddIfMinCommand(marineFactory));
-        registry.register("averageHealth", new AverageHeatlhCommand());
-        registry.register("clearCommand", new ClearCommand());
-        registry.register("averageHealth", new AverageHeatlhCommand());
+        registry.register("add_if_max", new AddIfMaxCommand(marineFactory));
+        registry.register("add_if_min", new AddIfMinCommand(marineFactory));
+        registry.register("average_of_health", new AverageHeatlhCommand());
+        registry.register("clear", new ClearCommand());
+        registry.register("show", new ShowCommand());
+        registry.register("info", new InfoCommand());
+        registry.register("update", new UpdateCommand(marineFactory));
+        registry.register("remove_by_id", new RemoveByIDCommand());
+        registry.register("remove_lower", new RemoveLowerCommand(marineFactory));
+        registry.register("count_less_than_chapter", new CountLessThanChapterCommand(marineFactory));
+        registry.register("print_field_ascending_achievements", new PrintAchievmentsCommand());
         registry.register("help", new HelpCommand(registry));
-        registry.register("averageHealth", new AverageHeatlhCommand());
-        registry.register("averageHealth", new AverageHeatlhCommand());
-        registry.register("averageHealth", new AverageHeatlhCommand());
-        registry.register("averageHealth", new AverageHeatlhCommand());
-        registry.register("averageHealth", new AverageHeatlhCommand());
-        registry.register("averageHealth", new AverageHeatlhCommand());
-        registry.register("averageHealth", new AverageHeatlhCommand());
-
     }
 
     public Request buildRequest(String input) {
         String[] parts = input.split(" ", 2);
-        String commandName = parts[0];
+        String commandName = parts[0].trim();
         String arg = parts.length > 1 ? parts[1] : null;
+
+        if ("help".equals(commandName)) {
+            try {
+                registry.get("help").execute(null);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+            return null;
+        }
 
         if (registry.hasCommand(commandName)) {
             try {
@@ -48,6 +55,6 @@ public class CommandExecutor {
             }
         }
 
-        return null;
+        throw new IllegalArgumentException("Команда '" + commandName + "' не найдена.");
     }
 }

@@ -1,4 +1,4 @@
-package cse_labwork5.src.common.services.command_fabric;
+package common.services.command_fabric;
 
 import java.util.HashMap;
 import java.util.Map;

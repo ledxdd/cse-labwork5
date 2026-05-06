@@ -1,7 +1,9 @@
-package cse_labwork5.src.common.services;
+package common.services;
 
-import cse_labwork5.src.common.models.SpaceMarine;
+import common.models.SpaceMarine;
 import java.time.LocalDateTime;
+import java.util.Comparator;
+import java.util.OptionalDouble;
 import java.util.TreeSet;
 
 /**
@@ -65,12 +67,7 @@ public class CollectionManager {
      * @return десантник с указанным id или null если не найден
      */
     public SpaceMarine findById(long id) {
-        for (SpaceMarine m : collection) {
-            if (m.getId().equals(id)) {
-                return m;
-            }
-        }
-        return null;
+        return collection.stream().filter(m -> m.getId().equals(id)).findFirst().orElse(null);
     }
 
     /**
@@ -78,15 +75,8 @@ public class CollectionManager {
      * @return среднее значение здоровья
      */
     public double getAverageHealth() {
-        double res = 0d;
-        int cnt = 0;
-
-        for (SpaceMarine m : collection) {
-            res += m.getHealth();
-            cnt++;
-        }
-
-        return res / cnt;
+        OptionalDouble average = collection.stream().mapToDouble(SpaceMarine::getHealth).average();
+        return average.orElse(0D);
     }
 
     /**
@@ -95,15 +85,7 @@ public class CollectionManager {
      * @return количество десантников, удовлетворяющих условию
      */
     public long countLessThanChapter(int marinesCount) {
-        long cnt = 0;
-
-        for (SpaceMarine m : collection) {
-            if (m.getChapter().getMarinesCnt() < marinesCount) {
-                cnt++;
-            }
-        }
-
-        return cnt;
+        return collection.stream().filter(m -> m.getChapter().getMarinesCnt() < marinesCount).count();
     }
 
     /**
@@ -146,19 +128,8 @@ public class CollectionManager {
      * Пересчитывает граничные значения здоровья по всем элементам коллекции
      */
     private void recalculateHealthBounds() {
-        double mxh = -1000000;
-        double mh = 1000000;
-
-        for (SpaceMarine m : collection) {
-            if (m.getHealth() > mxh) mxh = m.getHealth();
-        }
-
-        for (SpaceMarine m : collection) {
-            if (m.getHealth() < mh) mh = m.getHealth();
-        }
-
-        minHealth = mh;
-        maxHealth = mxh;
+        maxHealth = collection.stream().max(Comparator.comparing(SpaceMarine::getHealth)).map(SpaceMarine::getHealth).orElse(-10000D);
+        minHealth = collection.stream().min(Comparator.comparing(SpaceMarine::getHealth)).map(SpaceMarine::getHealth).orElse(10000D);
     }
 
     /**

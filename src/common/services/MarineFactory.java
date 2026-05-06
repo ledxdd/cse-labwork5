@@ -1,6 +1,6 @@
-package cse_labwork5.src.common.services;
+package common.services;
 
-import cse_labwork5.src.common.models.*;
+import common.models.*;
 
 import java.io.*;
 import java.util.Scanner;
@@ -31,7 +31,7 @@ public class MarineFactory {
      * @throws IOException если произошла ошибка чтения
      */
     public SpaceMarine createMarineFromFile(String path, BufferedReader br) throws IOException {
-        SpaceMarine marine = new SpaceMarine();
+        SpaceMarine marine = new SpaceMarine("update");
         Coordinates crdnts = new Coordinates();
         Chapter chapter = new Chapter();
 
@@ -384,7 +384,7 @@ public class MarineFactory {
      */
     public static SpaceMarine parseSpaceMarine(String marineXml) {
         try {
-            SpaceMarine marine = new SpaceMarine();
+            SpaceMarine marine = new SpaceMarine("update");
 
             String idStr = extractValue(marineXml, "id");
             if (idStr != null) marine.setId((long) Integer.parseInt(idStr));

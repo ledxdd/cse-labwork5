@@ -1,6 +1,6 @@
-package cse_labwork5.src.server.commands;
+package server.commands;
 
-import cse_labwork5.src.common.services.command_fabric.Command;
+import common.services.command_fabric.Command;
 
 public class HelpCommand implements Command {
     @Override

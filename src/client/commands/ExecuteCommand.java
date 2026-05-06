@@ -1,4 +1,4 @@
-package cse_labwork5.src.client.commands;
+package client.commands;
 
 public class ExecuteCommand {
 }

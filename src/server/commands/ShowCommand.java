@@ -1,12 +1,10 @@
-package cse_labwork5.src.server.commands;
+package server.commands;
 
-import cse_labwork5.src.common.models.SpaceMarine;
-import cse_labwork5.src.common.services.CollectionManager;
-import cse_labwork5.src.common.services.command_fabric.Command;
+import common.models.SpaceMarine;
+import common.services.CollectionManager;
+import common.services.command_fabric.Command;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.stream.Collectors;
+import java.util.List;
 
 public class ShowCommand implements Command {
     CollectionManager collectionManager;
@@ -19,9 +17,12 @@ public class ShowCommand implements Command {
     @Override
     public Object execute(Object arg) throws Exception {
         if (collectionManager.isEmpty()) {
-            return "коллекция пуста";
+            return List.of();
         }
 
-        return collectionManager.getCollection().stream().sorted(Comparator.comparing(SpaceMarine::getName)).map(SpaceMarine::toString).collect(Collectors.joining("\n------------------\n"));
+        return collectionManager.getCollection()
+                .stream()
+                .sorted((left, right) -> left.getName().compareTo(right.getName()))
+                .toList();
     }
 }

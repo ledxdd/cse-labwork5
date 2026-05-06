@@ -1,7 +1,7 @@
-package cse_labwork5.src.server.commands;
+package server.commands;
 
-import cse_labwork5.src.common.services.CollectionManager;
-import cse_labwork5.src.common.services.command_fabric.Command;
+import common.services.CollectionManager;
+import common.services.command_fabric.Command;
 
 public class ClearCommand implements Command {
     private final CollectionManager collectionManager;
@@ -14,8 +14,8 @@ public class ClearCommand implements Command {
     public Object execute(Object arg) throws Exception {
         if (collectionManager.isEmpty()) {
             return "Коллекция пуста";
-        } else {
-            return "Коллекция очищена!";
         }
+        collectionManager.clear();
+        return "Коллекция очищена!";
     }
 }

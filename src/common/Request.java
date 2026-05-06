@@ -1,4 +1,4 @@
-package cse_labwork5.src.common;
+package common;
 
 import java.io.Serializable;
 

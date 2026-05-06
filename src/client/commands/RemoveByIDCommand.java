@@ -1,15 +1,8 @@
-package cse_labwork5.src.client.commands;
+package client.commands;
 
-import cse_labwork5.src.common.services.CollectionManager;
-import cse_labwork5.src.common.services.command_fabric.Command;
+import common.services.command_fabric.Command;
 
 public class RemoveByIDCommand implements Command {
-    CollectionManager collectionManager;
-
-    public RemoveByIDCommand (CollectionManager collectionManager) {
-        this.collectionManager = collectionManager;
-    }
-
     @Override
     public Object execute(Object arg) throws Exception {
         try {

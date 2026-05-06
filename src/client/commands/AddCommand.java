@@ -1,9 +1,7 @@
-package cse_labwork5.src.client.commands;
+package client.commands;
 
-import cse_labwork5.src.common.models.SpaceMarine;
-import cse_labwork5.src.common.services.CollectionManager;
-import cse_labwork5.src.common.services.MarineFactory;
-import cse_labwork5.src.common.services.command_fabric.Command;
+import common.services.MarineFactory;
+import common.services.command_fabric.Command;
 
 /**
  * Команда для добавления нового десантника в коллекцию
@@ -16,7 +14,6 @@ public class AddCommand implements Command {
     /**
      * Создает команду добавления десантника
      * @param marineFactory фабрика для создания объектов SpaceMarine
-     * @param collectionManager менеджер коллекции для хранения десантников
      */
     public AddCommand(MarineFactory marineFactory) {
         this.marineFactory = marineFactory;

@@ -1,8 +1,8 @@
-package cse_labwork5.src.server.commands;
+package server.commands;
 
-import cse_labwork5.src.common.models.SpaceMarine;
-import cse_labwork5.src.common.services.CollectionManager;
-import cse_labwork5.src.common.services.command_fabric.Command;
+import common.models.SpaceMarine;
+import common.services.CollectionManager;
+import common.services.command_fabric.Command;
 
 public class UpdateCommand implements Command {
     private final CollectionManager collectionManager;
